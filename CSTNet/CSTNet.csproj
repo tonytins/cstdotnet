@@ -6,7 +6,6 @@
         <Authors>Tony Bark</Authors>
         <PackageDescription>Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets (^) that contains the contents. CST.NET is a library for prasing the CST format.</PackageDescription>
         <RepositoryUrl>https://github.com/tonytins/cstnet</RepositoryUrl>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Product>CST.Net</Product>
     </PropertyGroup>
 

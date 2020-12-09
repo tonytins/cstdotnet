@@ -1,0 +1,25 @@
+name: Publish Nuget Package
+on:
+    push:
+        branches:
+            - "releases/**"
+jobs:
+    publish:
+        name: Github Packages Release
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup dotnet
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: 3.1.404
+            - name: Install dependencies
+              run: dotnet restore
+            - name: Package
+              run: dotnet pack --no-restore -o .
+            - name: Publish
+              env:
+                  NUGET_KEY: ${{ secrets.GH_PKG_KEY }
+                  NUGET_API: https://nuget.pkg.github.com/tonytins/index.json
+              run: dotnet nuget push CSTNet.*.nupkg -k $NUGET_KEY -s $NUGET_API
