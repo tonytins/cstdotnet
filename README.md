@@ -4,7 +4,7 @@
 
 Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets (^) that contains the contents. CST.NET is a library for parsing the CST format.
 
-## Example
+## Usage
 
 ```csharp
 using System;
@@ -16,6 +16,13 @@ var example = CaretSeparatedText.Parse(file, 1);
 
 Console.WriteLine(example);
 ```
+
+In production, CST files were used in The Sims Online to provide translations. Each translation was split into their respective directories:
+
+- ``en/hints/toolbar.cst``
+- ``sv/hints/toolbar.cst``
+
+As long as the key remained the same, it didn't matter what directory the file was located in.
 
 ## To-do
 

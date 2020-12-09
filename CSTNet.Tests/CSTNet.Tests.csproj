@@ -23,4 +23,13 @@
     <ProjectReference Include="..\CSTNet\CSTNet.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="v1.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="v2.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
