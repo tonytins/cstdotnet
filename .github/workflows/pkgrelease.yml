@@ -5,7 +5,7 @@ on:
             - "releases/**"
 jobs:
     publish:
-        name: Github Packages Release
+        name: Package Release
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -18,8 +18,8 @@ jobs:
               run: dotnet restore
             - name: Package
               run: dotnet pack --no-restore -o .
-            - name: Publish
+            - name: Publish to Nuget
               env:
-                  NUGET_KEY: ${{ secrets.GH_PKG_KEY }}
-                  NUGET_API: https://nuget.pkg.github.com/tonytins/index.json
+                  NUGET_KEY: ${{ secrets.NUGET_KEY }}
+                  NUGET_API: https://api.nuget.org/v3/index.json
               run: dotnet nuget push CSTNet.*.nupkg -k $NUGET_KEY -s $NUGET_API
