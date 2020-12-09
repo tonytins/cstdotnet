@@ -19,8 +19,8 @@ Console.WriteLine(example);
 
 In production, CST files were used in The Sims Online to provide translations. Each translation was split into their respective directories:
 
-- ``en/hints/toolbar.cst``
-- ``sv/hints/toolbar.cst``
+- ``uitext/english.dir/hints/toolbar.cst``
+- ``uitext/swedish.dir/hints/toolbar.cst``
 
 As long as the key remained the same, it didn't matter what directory the file was located in.
 
