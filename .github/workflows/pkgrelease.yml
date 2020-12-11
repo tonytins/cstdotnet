@@ -18,8 +18,8 @@ jobs:
               run: dotnet restore
             - name: Package
               run: dotnet pack --no-restore -o .
-            - name: Publish to Nuget
-              env:
-                  NUGET_KEY: ${{ secrets.NUGET_KEY }}
-                  NUGET_API: https://api.nuget.org/v3/index.json
-              run: dotnet nuget push CSTNet.*.nupkg -k $NUGET_KEY -s $NUGET_API
+            # - name: Publish to Nuget
+            #   env:
+            #       NUGET_KEY: ${{ secrets.NUGET_KEY }}
+            #       NUGET_API: https://api.nuget.org/v3/index.json
+            #   run: dotnet nuget push CSTNet.*.nupkg -k $NUGET_KEY -s $NUGET_API
