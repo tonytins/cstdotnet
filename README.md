@@ -4,7 +4,7 @@
 
 Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets that contains the contents. (e.g. ``<key> ^<value>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
 
-QuickFennec.CST is a library for parsing the CST format.
+QuickFennec.CST is a library for parsing the CST format. Though, production version were capable of 
 
 ## Usage
 
@@ -23,6 +23,8 @@ var example = CaretSeparatedText.Parse(file, 1);
 
 Console.WriteLine(example);
 ```
+
+See working example on [.NET Fiddle](https://dotnetfiddle.net/ecKb2h).
 
 In production, CST files were used in The Sims Online to provide translations. Each translation was split into their respective directories:
 
