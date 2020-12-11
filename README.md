@@ -2,11 +2,15 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
-Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets (^) that contains the contents. Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
+Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets that contains the contents. (e.g. ``<key> ^<value>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
 
 QuickFennec.CST is a library for parsing the CST format.
 
 ## Usage
+
+```text
+1 ^The quick brown fox jumps over the lazy dog.^
+```
 
 ```csharp
 #r "nuget:CSTNet,1.0.1"
