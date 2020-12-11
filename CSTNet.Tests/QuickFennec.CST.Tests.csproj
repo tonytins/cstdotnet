@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CSTNet\CSTNet.csproj" />
+    <ProjectReference Include="..\CSTNet\QuickFennec.CST.csproj" />
   </ItemGroup>
 
   <ItemGroup>
