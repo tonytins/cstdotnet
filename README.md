@@ -12,7 +12,7 @@ QuickFennec.CST is a library for parsing the CST format.
 #r "nuget:CSTNet,1.0.1"
 using System;
 using System.IO;
-using QuickFennec.CST;
+using CSTNet;
 
 var file = File.ReadAllText("example.cst");
 var example = CaretSeparatedText.Parse(file, 1);
