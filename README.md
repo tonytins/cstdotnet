@@ -1,10 +1,10 @@
-# CST.NET
+# CSTNet
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
 Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets (^) that contains the contents. Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
 
-CST.NET is a library for parsing the CST format.
+CSTNet is a library for parsing the CST format.
 
 ## Usage
 

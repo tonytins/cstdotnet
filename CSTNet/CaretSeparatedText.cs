@@ -6,6 +6,12 @@ namespace CSTNet
 {
     public static class CaretSeparatedText
     {
+        const char CARET = '^';
+        static readonly string _lf = "\u000A";
+        static readonly string _cr = "\u000D";
+        static readonly string _crlf = "\u000D\u000A";
+        static readonly string _ls = "\u2028";
+
         /// <summary>
         /// Gets the value from the integer-based key.
         /// </summary>
@@ -13,7 +19,7 @@ namespace CSTNet
         public static string Parse(string content, int key)
         {
             var entries = NormalizeEntries(content);
-            return GetEntry(entries, $"{key}");
+            return GetEntry(entries, key.ToString());
         }
 
         /// <summary>
@@ -32,52 +38,79 @@ namespace CSTNet
         /// <remarks>This stage ensures there are no crashes during parsing.</remarks>
         static IEnumerable<string> NormalizeEntries(string content)
         {
-            var lineBreaks = new string[]
+
+            /* 
+            I tried putting the end carets with the different
+            line endings in with the split function but it didn't work 
+            */
+            if (!content.Contains($"{CARET}{Environment.NewLine}"))
             {
-                "^\u000A", // LF
-                "^\u000D", // CR
-                "^\u000D\u000A", // CR+LF
-                "^\u2028" // LS
-            };
+                if (content.Contains($"{CARET}{_lf}"))
+                    content = content.Replace($"{CARET}{_lf}",
+                    $"{CARET}{Environment.NewLine}");
 
-            foreach (var line in lineBreaks)
-            {
-                var eol = Environment.NewLine; // System's line break
+                if (content.Contains($"{CARET}{_cr}"))
+                    content = content.Replace($"{CARET}{_cr}",
+                    $"{CARET}{Environment.NewLine}");
 
-                // If the new line matches the system's, do nothing
-                if (line.Contains(eol))
-                    continue;
+                if (content.Contains($"{CARET}{_crlf}"))
+                    content = content.Replace($"{CARET}{_crlf}",
+                    $"{CARET}{Environment.NewLine}");
 
-                content.Replace(line, eol);
+                if (content.Contains($"{CARET}{_ls}"))
+                    content = content.Replace($"{CARET}{_ls}",
+                    $"{CARET}{Environment.NewLine}");
             }
 
-            return content.Split(lineBreaks, StringSplitOptions.RemoveEmptyEntries);
 
+            var entries = content.Split(new[] { $"{CARET}{Environment.NewLine}" },
+                StringSplitOptions.RemoveEmptyEntries);
+            var newContent = new List<string>();
+
+            foreach (var entry in entries)
+            {
+                // Skip comments
+                if (entry.StartsWith(@"//") || entry.StartsWith("#") ||
+                    entry.StartsWith("/*") || entry.EndsWith("*/"))
+                    continue;
+
+                newContent.Add(entry);
+            }
+
+            return newContent;
         }
 
-        // TODO: support argument parameters
         static string GetEntry(IEnumerable<string> entries, string key)
         {
-            var translation = "[ENTRY NOT FOUND]";
-
-            // Search through array
+            // Search through list
             foreach (var entry in entries)
             {
                 // Locate index, trim carets and return translation
                 if (!entry.StartsWith(key))
                     continue;
 
-                const char caret = '^';
-
-                var startIndex = entry.IndexOf(caret.ToString(),
-                    StringComparison.OrdinalIgnoreCase);
-
+                var startIndex = entry.IndexOf(CARET);
                 var line = entry.Substring(startIndex);
 
-                translation = line.Trim(caret);
+                if (!line.Contains(Environment.NewLine))
+                {
+                    if (line.Contains(_lf))
+                        line = line.Replace(_lf, Environment.NewLine);
+
+                    if (line.Contains(_cr))
+                        line = line.Replace(_cr, Environment.NewLine);
+
+                    if (line.Contains(_crlf))
+                        line = line.Replace(_crlf, Environment.NewLine);
+
+                    if (line.Contains(_ls))
+                        line = line.Replace(_ls, Environment.NewLine);
+                }
+
+                return line.TrimStart(CARET).TrimEnd(CARET);
             }
 
-            return translation;
+            return "[ENTRY NOT FOUND]";
         }
     }
 }

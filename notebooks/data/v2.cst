@@ -1,4 +1,6 @@
 Singleline^Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies nulla eu tortor mattis, dictum posuere lacus ornare. Maecenas a massa in ligula finibus luctus eu vitae nibh. Proin imperdiet dapibus mauris quis placerat.^
-Multiline ^Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida nunc non justo pretium consectetur. Sed tempus libero ac ligula aliquam elementum. Duis vitae interdum leo. Sed semper nulla %1 a lectus dictum dictum. Ut mattis eu tortor in bibendum. Integer mattis tincidunt aliquet. Vestibulum ante ipsum primis in faucibus orci %2 luctus et ultrices posuere cubilia Curae; Fusce quis orci nisl.
+/* this is a
+test comment */
+Multiline^Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida nunc non justo pretium consectetur. Sed tempus libero ac ligula aliquam elementum. Duis vitae interdum leo. Sed semper nulla %1 a lectus dictum dictum. Ut mattis eu tortor in bibendum. Integer mattis tincidunt aliquet. Vestibulum ante ipsum primis in faucibus orci %2 luctus et ultrices posuere cubilia Curae; Fusce quis orci nisl.
 
 Quisque vehicula, nisi ut scelerisque sodales, nisi ipsum sodales ipsum, in rutrum tellus lacus sed nibh. Etiam mauris velit, elementum sed placerat et, elementum et tellus. Duis vitae elit fermentum, viverra lorem in, lobortis elit. Maecenas eget nibh et lectus auctor dignissim.^
