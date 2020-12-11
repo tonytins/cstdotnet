@@ -10,7 +10,7 @@ The normalizing algorithm has been rewritten to be more efficient and hopefully 
 
 ### CSTNet compatibility
 
-For point releases (such as this), QuickFennec.CST will remain under the CSTNet namespace for compatibility reasons. CSTNet will be moved to QuickFennec.CST namespace starting with 1.1.
+For point releases (such as this), Sixam.CST will remain under the CSTNet namespace for compatibility reasons. CSTNet will be moved to Sixam.CST namespace starting with 1.1.
 
 ### Known issues
 
