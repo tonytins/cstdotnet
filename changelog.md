@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.2
+
+- Fixed the multiline parsing in the v2 format.
+
 ## 1.0.1
 
 Despite only being a point release, this includes a major refinement to the normalizing algorithm.

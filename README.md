@@ -2,9 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
-Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets that contains the contents. (e.g. ``<key> ^<value>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
-
-Sixam.CST is a library for parsing the CST format. Though, production version were capable of 
+Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character. Sixam.CST is a library for parsing the CST format.
 
 ## Usage
 
@@ -13,7 +11,7 @@ Sixam.CST is a library for parsing the CST format. Though, production version we
 ```
 
 ```csharp
-#r "nuget:CSTNet,1.0.1"
+#r "nuget:CSTNet,1.0.2"
 using System;
 using System.IO;
 using CSTNet;
@@ -26,10 +24,10 @@ Console.WriteLine(example);
 
 See working example on [.NET Fiddle](https://dotnetfiddle.net/ecKb2h).
 
-In production, CST files were used in The Sims Online to provide translations. Each translation was split into their respective directories:
+In production, CST files were used in The Sims Online (TSO) to provide translations. Each translation was split into their respective directories:
 
-- ``uitext/english.dir/misc/_154_miscstrings.cst``
-- ``uitext/swedish.dir/misc/_154_miscstrings.cst``
+- ``uitext/english.dir/_154_miscstrings.cst``
+- ``uitext/swedish.dir/_154_miscstrings.cst``
 
 Sixam.CST only provides the basic parsing functionality.
 
@@ -40,7 +38,6 @@ Sixam.CST only provides the basic parsing functionality.
 ## Known issues
 
 - Skipping comments is a little buggy.
-- Multiline parsing with the v2 format is still unpredictable.
 
 ## Requirements
 ### Prerequisites
