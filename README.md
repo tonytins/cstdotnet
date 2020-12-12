@@ -1,15 +1,17 @@
-# QuickFennec.CST
+# Sixam.CST
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
 
-Caret-Separated Text (or CST) is a key-value pair format represented by numbers or words as keys and the value is the string enclosed between carets (^) that contains the contents. Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
-
-QuickFennec.CST is a library for parsing the CST format.
+Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character. Sixam.CST is a library for parsing the CST format.
 
 ## Usage
 
+```text
+1 ^The quick brown fox jumps over the lazy dog.^
+```
+
 ```csharp
-#r "nuget:CSTNet,1.0.1"
+#r "nuget:CSTNet,1.0.2"
 using System;
 using System.IO;
 using CSTNet;
@@ -20,12 +22,14 @@ var example = CaretSeparatedText.Parse(file, 1);
 Console.WriteLine(example);
 ```
 
-In production, CST files were used in The Sims Online to provide translations. Each translation was split into their respective directories:
+See working example on [.NET Fiddle](https://dotnetfiddle.net/ecKb2h).
 
-- ``uitext/english.dir/misc/_154_miscstrings.cst``
-- ``uitext/swedish.dir/misc/_154_miscstrings.cst``
+In production, CST files were used in The Sims Online (TSO) to provide translations. Each translation was split into their respective directories:
 
-QuickFennec.CST only provides the basic parsing functionality.
+- ``uitext/english.dir/_154_miscstrings.cst``
+- ``uitext/swedish.dir/_154_miscstrings.cst``
+
+Sixam.CST only provides the basic parsing functionality.
 
 ## To-do
 
@@ -34,7 +38,6 @@ QuickFennec.CST only provides the basic parsing functionality.
 ## Known issues
 
 - Skipping comments is a little buggy.
-- Multiline parsing with the v2 format is still unpredictable.
 
 ## Requirements
 ### Prerequisites

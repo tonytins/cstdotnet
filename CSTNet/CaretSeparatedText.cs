@@ -38,46 +38,36 @@ namespace CSTNet
         /// <remarks>This stage ensures there are no crashes during parsing.</remarks>
         static IEnumerable<string> NormalizeEntries(string content)
         {
-
-            /* 
-            I tried putting the end carets with the different
-            line endings in with the split function but it didn't work 
-            */
-            if (!content.Contains($"{CARET}{Environment.NewLine}"))
+            if (!content.Contains(Environment.NewLine))
             {
-                if (content.Contains($"{CARET}{_lf}"))
-                    content = content.Replace($"{CARET}{_lf}",
-                    $"{CARET}{Environment.NewLine}");
+                if (content.Contains(_lf))
+                    content = content.Replace(_lf, Environment.NewLine);
 
-                if (content.Contains($"{CARET}{_cr}"))
-                    content = content.Replace($"{CARET}{_cr}",
-                    $"{CARET}{Environment.NewLine}");
+                if (content.Contains(_cr))
+                    content = content.Replace(_cr, Environment.NewLine);
 
-                if (content.Contains($"{CARET}{_crlf}"))
-                    content = content.Replace($"{CARET}{_crlf}",
-                    $"{CARET}{Environment.NewLine}");
+                if (content.Contains(_crlf))
+                    content = content.Replace(_crlf, Environment.NewLine);
 
-                if (content.Contains($"{CARET}{_ls}"))
-                    content = content.Replace($"{CARET}{_ls}",
-                    $"{CARET}{Environment.NewLine}");
+                if (content.Contains(_ls))
+                    content = content.Replace(_ls, Environment.NewLine);
             }
 
-
-            var entries = content.Split(new[] { $"{CARET}{Environment.NewLine}" },
+            var lines = content.Split(new[] { $"{CARET}{Environment.NewLine}" },
                 StringSplitOptions.RemoveEmptyEntries);
-            var newContent = new List<string>();
+            var entries = new List<string>();
 
-            foreach (var entry in entries)
+            foreach (var line in lines)
             {
                 // Skip comments
-                if (entry.StartsWith(@"//") || entry.StartsWith("#") ||
-                    entry.StartsWith("/*") || entry.EndsWith("*/"))
+                if (line.StartsWith("//") || line.StartsWith("#") ||
+                    line.StartsWith("/*") || line.EndsWith("*/"))
                     continue;
 
-                newContent.Add(entry);
+                entries.Add(line);
             }
 
-            return newContent;
+            return entries;
         }
 
         static string GetEntry(IEnumerable<string> entries, string key)
@@ -85,32 +75,18 @@ namespace CSTNet
             // Search through list
             foreach (var entry in entries)
             {
-                // Locate index, trim carets and return translation
+                // If the line doesn't start with the key, keep searching.
                 if (!entry.StartsWith(key))
                     continue;
 
+                // Locate index, trim carets and return translation.
                 var startIndex = entry.IndexOf(CARET);
                 var line = entry.Substring(startIndex);
-
-                if (!line.Contains(Environment.NewLine))
-                {
-                    if (line.Contains(_lf))
-                        line = line.Replace(_lf, Environment.NewLine);
-
-                    if (line.Contains(_cr))
-                        line = line.Replace(_cr, Environment.NewLine);
-
-                    if (line.Contains(_crlf))
-                        line = line.Replace(_crlf, Environment.NewLine);
-
-                    if (line.Contains(_ls))
-                        line = line.Replace(_ls, Environment.NewLine);
-                }
 
                 return line.TrimStart(CARET).TrimEnd(CARET);
             }
 
-            return "[ENTRY NOT FOUND]";
+            return "***MISSING***";
         }
     }
 }
