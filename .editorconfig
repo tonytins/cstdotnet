@@ -29,7 +29,7 @@ dotnet_naming_rule.constant_fields_should_be_pascal_case.style           = pasca
 dotnet_naming_symbols.constant_fields.applicable_kinds                   = field
 dotnet_naming_symbols.constant_fields.required_modifiers                 = const
 
-dotnet_naming_style.pascal_case_style.capitalization                     = pascal_case
+dotnet_naming_style.pascal_case_style.capitalization                     = all_upper
 
 # Comment this group and uncomment out the next group if you don't want _ prefixed fields.
 
@@ -126,6 +126,3 @@ csharp_space_between_method_declaration_name_and_open_parenthesis        = false
 csharp_space_between_method_declaration_parameter_list_parentheses       = false
 csharp_space_between_parentheses                                         = false
 csharp_space_between_square_brackets                                     = false
-
-# CA1815: Override equals and operator equals on value types
-dotnet_diagnostic.CA1815.severity = silent

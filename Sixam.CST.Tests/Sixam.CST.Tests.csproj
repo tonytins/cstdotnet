@@ -19,14 +19,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CSTNet\Sixam.CST.csproj" />
+        <ProjectReference Include="..\Sixam.CST\Sixam.CST.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="v1.cst">
+        <None Update="uitext\lorem.dir\_101_v1.cst">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="v2.cst">
+        <None Update="uitext\lorem.dir\_102_v2.cst">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

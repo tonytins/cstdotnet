@@ -1,8 +1,25 @@
 # Change Log
+
+## 1.1.100
+
+- Switched to Sixam.CST namespace and marked CSTNet namespace as obsolete.
+- Performance improvements.
+- Patch numbers are now in the triple digits.
+
+### UIText class
+
+The UIText class allows for travseing in ``/<directory>/<language>.dir`` directories and searching for CST files by their Id number. (e.g. _*154*_miscstrings.cst). By defualt, the base path is ``/<program directory>/uitext/<language>.dir``. For more info, see [usage.md](./usage.md).
+
+## 1.0.3
+
+- Backport switch to Sixam.CST namespace
+- Internal improvements.
+
 ## 1.0.2
 
 - Fixed the multiple line parsing in the v2 format.
 - Replaced "``[ENTRY NOT FOUND]``" message with "``***MISSING***``".
+
 ## 1.0.1
 
 Despite only being a point release, this includes a major refinement to the normalizing algorithm.

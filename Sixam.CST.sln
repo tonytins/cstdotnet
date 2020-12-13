@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixam.CST", "CSTNet\Sixam.CST.csproj", "{82775826-A366-46F0-A5D2-5BE7658C75E4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCFCE2DB-C18F-4D88-B025-19ED62BD2A1D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		changelog.md = changelog.md
 		README.md = README.md
+		Sixam.CST.sln.licenseheader = Sixam.CST.sln.licenseheader
+		usage.md = usage.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixam.CST.Tests", "CSTNet.Tests\Sixam.CST.Tests.csproj", "{B6A98C64-1419-4B9A-99CA-72BB11D29472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixam.CST", "Sixam.CST\Sixam.CST.csproj", "{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixam.CST.Tests", "Sixam.CST.Tests\Sixam.CST.Tests.csproj", "{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,14 +22,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{82775826-A366-46F0-A5D2-5BE7658C75E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82775826-A366-46F0-A5D2-5BE7658C75E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82775826-A366-46F0-A5D2-5BE7658C75E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82775826-A366-46F0-A5D2-5BE7658C75E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6A98C64-1419-4B9A-99CA-72BB11D29472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6A98C64-1419-4B9A-99CA-72BB11D29472}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6A98C64-1419-4B9A-99CA-72BB11D29472}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6A98C64-1419-4B9A-99CA-72BB11D29472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
