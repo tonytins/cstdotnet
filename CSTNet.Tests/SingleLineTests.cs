@@ -1,7 +1,8 @@
 // This project is licensed under the MIT license.
+
 using Xunit;
 
-namespace CSTNet.Tests
+namespace Sixam.CST.Tests
 {
     public class SingleLineTests
     {

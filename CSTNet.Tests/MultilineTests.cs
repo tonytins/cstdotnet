@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace CSTNet.Tests
+namespace Sixam.CST.Tests
 {
     public class MultilineTests
     {
