@@ -4,6 +4,7 @@
 
 - Switched to Sixam.CST namespace and marked CSTNet namespace as obsolete.
 - Performance improvements.
+- Patch numbers are now in the triple digits.
 
 ## 1.0.2
 
