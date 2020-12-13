@@ -22,4 +22,4 @@ jobs:
               env:
                   NUGET_KEY: ${{ secrets.NUGET_KEY }}
                   NUGET_API: https://api.nuget.org/v3/index.json
-              run: dotnet nuget push CSTNet.*.nupkg -k $NUGET_KEY -s $NUGET_API
+              run: dotnet nuget push Sixam.CST.*.nupkg -k $NUGET_KEY -s $NUGET_API
