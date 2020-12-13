@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace CSTNet.Tests
+namespace Sixam.CST.Tests
 {
     static class CSTHelper
     {

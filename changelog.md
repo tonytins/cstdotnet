@@ -1,11 +1,19 @@
 # Change Log
+
+## 1.0.300
+
+- Switched to Sixam.CST namespace and marked CSTNet namespace as obsolete.
+- Performance improvements.
+- Patch numbers are now in the triple digits.
+
 ## 1.0.2
 
 - Fixed the multiple line parsing in the v2 format.
 - Replaced "``[ENTRY NOT FOUND]``" message with "``***MISSING***``".
+
 ## 1.0.1
 
-Despite only being a point release, this includes a major refinement to the normalizing algorithm.
+Despite only being a patch release, this includes a major refinement to the normalizing algorithm.
 
 ### Rewrote normalizing algorithm
 

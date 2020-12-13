@@ -11,7 +11,7 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 ```
 
 ```csharp
-#r "nuget:CSTNet,1.0.2"
+#r "nuget:CSTNet,1.0.300"
 using System;
 using System.IO;
 using CSTNet;
