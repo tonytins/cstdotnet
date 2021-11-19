@@ -1,5 +1,19 @@
 # Change Log
 
+## 1.2.100
+
+This version removes support for .NET Standard 2.0 in favor of .NET 6 and brings with it (much needed) quality of life changes to the project. Apart from the removal of the ``CSTNet`` namespace, nothing has changed to the API itself and you can continue to use to 1.1.100 on all platforms where .NET Standard 2.0 is [supported](https://dotnet.microsoft.com/platform/dotnet-standard).
+
+From 1.2 onward, Sixam.CST will only target LTS releases. This is why .NET 5 was skipped, despite the initial platform unification.
+
+### Project Changes
+
+With the move to .NET 6.0, this version brings with it a lot of quality of life changes to the project. This includes file-scoped namespaces, implicit and global usings. For a full list of language changes see [Welcome to C# 10](https://devblogs.microsoft.com/dotnet/welcome-to-csharp-10/).
+
+### Nullable Reference Types
+
+The only significant architectural change that was finally enabled with this release is [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/nullable-reference-types). This feature was introduced in .NET Core 3.0 and .NET Standard 2.1, respectfully, but not the .NET Framework. Nullable values are already taken care of by the library. The reason why I never switched to 2.1 before was because the Sims community has historically targeted the .NET Framework, and that doesn't support 2.1.
+
 ## 1.1.100
 
 - Switched to Sixam.CST namespace and marked CSTNet namespace as obsolete.

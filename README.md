@@ -14,15 +14,13 @@ See [usage.md](./usage.md).
 
 ## Known issues
 
-- Skipping comments is a little buggy.
+- Skipping comments is a little unpredictable.
 
 ## Requirements
-### Prerequisites
 
-- [.NET](https://dotnet.microsoft.com/download) 5+ or Core 3.1
-- [.NET Interactive](https://github.com/dotnet/interactive/blob/main/README.md) for notebooks
-    - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode) (does not require Jupyter)
-    - [nteract](https://nteract.io/) (requires Jupyter)
+- [.NET](https://dotnet.microsoft.com/download) 6+.
+- [.NET Interactive](https://github.com/dotnet/interactive/blob/main/README.md) for notebooks (optional).
+    - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode) or [nteract](https://nteract.io/)
 
 ## License
 

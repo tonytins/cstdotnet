@@ -10,8 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                dotnet: ["3.1.404", "5.0.101"]
-
+                dotnet: ["6.0.x"]
         steps:
             - uses: actions/checkout@v2
             - name: Setup .NET

@@ -7,9 +7,7 @@
 ```
 
 ```csharp
-#r "nuget:Sixam.CST,1.1"
-using System;
-using System.IO;
+#r "nuget:Sixam.CST,1.1.100" // If using notebooks
 using Sixam.CST;
 
 var file = File.ReadAllText("example.cst");
@@ -18,31 +16,29 @@ var example = CaretSeparatedText.Parse(file, 1);
 Console.WriteLine(example);
 ```
 
-See working example on [.NET Fiddle](https://dotnetfiddle.net/ecKb2h).
-
 ## Complex Scenarios
 
-In production, CST files were used in The Sims Online (TSO) to provide translations. It was required that they were prefixed with numbers enclosed in underscores, known as the ID. The IDs were used to locate the right file without knowing it's name. Meanwhile, each translation was split into their respective ``uitext/<languae>.dir`` directories:
+In production, CST files were used in The Sims Online to provide translations It was required that they were prefixed with numbers enclosed in underscores, known as the ID. The IDs were used to locate the right file without knowing it's name. Meanwhile, each translation was split into their respective ``uitext/<languae>.dir`` directories:
 
 - ``uitext/english.dir/_154_miscstrings.cst``
-- ``uitext/swedish.dir/_154_miscstrings.cst``[^1]
+- ``uitext/swedish.dir/_154_miscstrings.cst``
 
 Starting with 1.1, the UIText class provides methods that directorly map to these directories relative to the application's.
 
 ```csharp
-#r "nuget:Sixam.CST,1.1"
+#r "nuget:Sixam.CST,1.1.100"
 using Sixam.CST;
 
 var english = new UIText(); // UIText assumes English
 var swedish = new UIText("swedish");
-var engExample = english.GetText(101, 1); // english.dir/_101_example.cst
-var sweExample = swedish.GetText(101, 1); // swedish.dir/_101_example.cst
+var engExample = english.GetText(152, 1); // english.dir/_154_miscstrings.cst
+var sweExample = swedish.GetText(152, 1); // swedish.dir/_154_miscstrings.cst
 
 Console.WriteLine(engExample);
 Console.WriteLine(sweExample);
 ```
 
-Note that GetText() remains unchanged because the translation is expected to be same id and key, despite being in a different directory.
+Note that the IDs and keys in both ``GetText()`` examples remains the same. This is because it was historically assumed that the English and translations files were identical. However, the original never saw any new languages added.
 
 ### Changing base directories
 
@@ -57,5 +53,3 @@ var example = new UIText()
     BasePath = new[] { "gamedata", "uitext" },
 };
 ```
-
-[^1]: TSO only supported English.
