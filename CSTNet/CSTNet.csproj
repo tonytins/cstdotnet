@@ -13,6 +13,7 @@
         </PackageDescription>
         <RepositoryUrl>https://github.com/sixamsoft/cst-dotnet</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RootNamespace>Sixam.CST</RootNamespace>
     </PropertyGroup>
 
 </Project>

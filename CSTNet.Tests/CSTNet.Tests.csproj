@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>false</IsPackable>
+        <RootNamespace>Sixam.CST.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Sixam.CST\Sixam.CST.csproj" />
+        <ProjectReference Include="..\CSTNet\CSTNet.csproj" />
     </ItemGroup>
 
     <ItemGroup>

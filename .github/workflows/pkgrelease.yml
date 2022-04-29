@@ -1,24 +1,24 @@
 name: Publish Nuget Package
 on:
-    push:
-        branches:
-            - "releases/**"
+  push:
+    branches:
+      - "releases/**"
 jobs:
-    publish:
-        name: Package Release
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - name: Setup dotnet
-              uses: actions/setup-dotnet@v1
-              with:
-                  dotnet-version: "6.0.x"
-            - name: Install dependencies
-              run: dotnet restore
-            - name: Package
-              run: dotnet pack --no-restore -o .
-            - name: Publish to Nuget
-              env:
-                  NUGET_KEY: ${{ secrets.NUGET_KEY }}
-                  NUGET_API: https://api.nuget.org/v3/index.json
-              run: dotnet nuget push Sixam.CST.*.nupkg -k $NUGET_KEY -s $NUGET_API
+  publish:
+    name: Package Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Package
+        run: dotnet pack --no-restore -o .
+      - name: Publish to Nuget
+        env:
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+          NUGET_API: https://api.nuget.org/v3/index.json
+        run: dotnet nuget push CSTNet.*.nupkg -k $NUGET_KEY -s $NUGET_API

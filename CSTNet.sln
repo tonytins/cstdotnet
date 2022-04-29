@@ -8,13 +8,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		changelog.md = changelog.md
 		README.md = README.md
-		Sixam.CST.sln.licenseheader = Sixam.CST.sln.licenseheader
+		CSTNet.sln.licenseheader = CSTNet.sln.licenseheader
 		usage.md = usage.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixam.CST", "Sixam.CST\Sixam.CST.csproj", "{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSTNet", "CSTNet\CSTNet.csproj", "{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sixam.CST.Tests", "Sixam.CST.Tests\Sixam.CST.Tests.csproj", "{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSTNet.Tests", "CSTNet.Tests\CSTNet.Tests.csproj", "{01A1A8E9-D83E-4877-8AEB-2FD0A298F049}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
