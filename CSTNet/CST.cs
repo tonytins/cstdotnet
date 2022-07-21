@@ -3,7 +3,10 @@
 
 namespace CSTNet;
 
-public class CaretSeparatedText
+[Obsolete("Use CST class instead.")]
+public class CaretSeparatedText : CST { }
+
+public class CST
 {
     const char CARET = '^';
     const string LF = "\u000A";
@@ -78,3 +81,5 @@ public class CaretSeparatedText
         return "***MISSING***";
     }
 }
+
+
