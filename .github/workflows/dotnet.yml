@@ -7,10 +7,11 @@ on:
         branches: [main, master, "releases/**"]
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.platforms }}
         strategy:
             matrix:
                 dotnet: ["6.0.x"]
+                platforms: ["ubuntu-latest", "windows-latex", "macos-latest"]
         steps:
             - uses: actions/checkout@v2
             - name: Setup .NET
