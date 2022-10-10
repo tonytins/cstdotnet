@@ -1,8 +1,8 @@
-name: Publish Release Package
+name: Publish Testing Package
 on:
   push:
     branches:
-      - "releases/**"
+      - "staging/**"
 jobs:
   publish:
     name: Package Release
@@ -19,6 +19,6 @@ jobs:
         run: dotnet pack --no-restore -o .
       - name: Publish to Nuget
         env:
-          NUGET_KEY: ${{ secrets.DEPLOY_KEY }}
-          NUGET_API: https://api.nuget.org/v3/index.json
+          NUGET_KEY: ${{ secrets.DEPLOY_TEST_KEY }}
+          NUGET_API: https://apiint.nugettest.org/v3/index.json
         run: dotnet nuget push CSTNet.*.nupkg --api-key $NUGET_KEY --source $NUGET_API

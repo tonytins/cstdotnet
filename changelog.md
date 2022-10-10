@@ -4,15 +4,17 @@
 
 This version supports both .NET Standard 2.1 and .NET 6 and brings with it (much needed) quality of life changes internally. Apart from that, nothing has changed to the API itself apart from much needed documentation.
 
-### New Release Cycle
-
-Because this library has no third-party dependencies, CST.NET's release cycle will generally follow .NET's LTS cycle. This is why .NET 5 was skipped. Minor releases will consist of targeting latest LTS. For example, 2.1 will drop Standard 2.1 (ironically) in favor of .NET 8.0, 6.0 will continue to be targeted until it's end of life and 2.2 will strictly target 8.0. This should ensure continues security updates and Enterprise-grade support.
-
 ### UIText class and interface
 
 Based on FreeSO's API, the ``UIText`` class allows for traversing in ``/<directory>/<language>.dir`` directories and searching CST files by their Id number. (e.g. _*154*_miscstrings.cst). By defualt, the base path is ``/<program directory>/uitext/<language>.dir``. You may also create your own implementation based on these APIs using the ``IUIText`` interface which mine also uses.
 
 For more info, see [usage.md](./usage.md).
+
+### New Release Cycle
+
+Because this library has no third-party dependencies, CST.NET's release cycle will generally follow .NET's LTS cycle. This is why .NET 5 was skipped. Minor releases will consist of targeting latest LTS.
+
+For example, 2.5 adds .NET 8.0 next to 6.0 until the latter reaches end of life and finally 2.6 targets only 8.0. Keep in mind, this is all just hypothetical. Realistically, this could happen as soon as 2.2 because parameters will land as earlier as 2.1.
 
 ## 1.0.300
 
