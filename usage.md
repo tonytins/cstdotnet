@@ -21,7 +21,7 @@ Console.WriteLine(example);
 
 ## In Production
 
-Based on FreeSO's public APIs, the UIText class provides a basic production infrastructure to be used in production. Starting with 0.1.400, the UIText class provides methods that directory map to these directories relative to the application's.
+The Sims Online, and by extension FreeSO, are the only known example of CST files ever being used in production. CST.NET's APIs is based on FreeSO's and is meant to function both as drop-in replacement and general purpose API.
 
 ```csharp
 #r "nuget:CSTNet,1.0.300"
@@ -41,7 +41,7 @@ In The Sims Online, it was required translation were prefixed with numbers enclo
 - ``uitext/english.dir/_154_miscstrings.cst``
 - ``uitext/swedish.dir/_154_miscstrings.cst``
 
-Note that that ``UIText`` class uses the above mentioned ``CST.Parse()`` method to parse the files.
+Note that the ``UIText`` class uses the above mentioned ``CST.Parse()`` method internally. Any changes made to the CST class.
 
 ### Changing base directories
 
