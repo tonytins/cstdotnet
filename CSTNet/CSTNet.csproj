@@ -13,7 +13,7 @@
             CSTNet provides you the framework for parsing the CST format.
         </PackageDescription>
         <RepositoryUrl>https://github.com/tonytins/cstdotnet</RepositoryUrl>
-        <PackageLicenseExpression>BSD 3-Clause</PackageLicenseExpression>
+        <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     </PropertyGroup>
 
 </Project>
