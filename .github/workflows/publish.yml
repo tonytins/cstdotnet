@@ -19,6 +19,6 @@ jobs:
         run: dotnet pack --no-restore -o .
       - name: Publish to Nuget
         env:
-          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+          NUGET_KEY: ${{ secrets.DEPLOY_KEY }}
           NUGET_API: https://api.nuget.org/v3/index.json
-        run: dotnet nuget push CSTNet.*.nupkg -k $DEPLOY_KEY -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push CSTNet.*.nupkg --api-key $NUGET_KEY --source $NUGET_API
