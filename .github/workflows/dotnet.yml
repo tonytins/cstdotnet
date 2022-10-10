@@ -13,7 +13,7 @@ jobs:
         strategy:
             matrix:
                 dotnet: ["6.0.x"]
-                platforms: ["ubuntu-latest", "windows-latex", "macos-latest"]
+                platforms: ["ubuntu-latest", "windows-latest", "macos-latest"]
         steps:
             - uses: actions/checkout@v2
             - name: Setup .NET
