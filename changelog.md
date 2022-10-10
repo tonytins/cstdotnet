@@ -2,15 +2,17 @@
 
 ## 2.0.100
 
-This version supports both .NET Standard 2.1 and .NET 6 and brings with it (much needed) quality of life changes on the project side of things. Apart from that, nothing has changed to the API itself apart from much needed documentation.
+This version supports both .NET Standard 2.1 and .NET 6 and brings with it (much needed) quality of life changes internally. Apart from that, nothing has changed to the API itself apart from much needed documentation.
 
-From this version onward, CSTNet will only target LTS releases. This is why .NET 5 was skipped, despite the initial platform unification.
+### New Release Cycle
+
+Because this library has no third-party dependencies, CST.NET's release cycle will generally follow .NET's LTS cycle. This is why .NET 5 was skipped. Minor releases will consist of targeting latest LTS. For example, 2.1 will drop Standard 2.1 (ironically) in favor of .NET 8.0, 6.0 will continue to be targeted until it's end of life and 2.2 will strictly target 8.0. This should ensure continues security updates and Enterprise-grade support.
 
 ### UIText class and interface
 
-The ``UIText`` class implants the ``IUITEext`` interface. It allows for traversing in ``/<directory>/<language>.dir`` directories and searching for CST files by their Id number. (e.g. _*154*_miscstrings.cst). By defualt, the base path is ``/<program directory>/uitext/<language>.dir``. For more info, see [usage.md](./usage.md).
+Based on FreeSO's API, the ``UIText`` class allows for traversing in ``/<directory>/<language>.dir`` directories and searching CST files by their Id number. (e.g. _*154*_miscstrings.cst). By defualt, the base path is ``/<program directory>/uitext/<language>.dir``. You may also create your own implementation based on these APIs using the ``IUIText`` interface which mine also uses.
 
-You can build your own version the 
+For more info, see [usage.md](./usage.md).
 
 ## 1.0.300
 
@@ -28,7 +30,7 @@ You can build your own version the
 
 ## 1.0.1
 
-Despite only being a point release, this includes a major refinement to the normalizing algorithm.
+Despite only being a patch release, this includes a major refinement to the normalizing algorithm.
 
 ### Rewrote normalizing algorithm
 
