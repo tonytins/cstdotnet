@@ -1,7 +1,14 @@
 # CST.NET
 
-[![GitHub license](https://img.shields.io/github/license/tonytins/cstdotnet)](https://github.com/tonytins/cstdotnet/blob/main/LICENSE) ![Nuget](https://img.shields.io/nuget/v/cstnet) ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/tonytins/cstdotnet/dotnet.yml) ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/tonytins/cstdotnet)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md) ![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/tonytins/cstdotnet) ![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/tonytins/cstdotnet)
+<p align="center">
+  <a href="https://github.com/tonytins/cstdotnet/blob/main/LICENSE"><img src="https://img.shields.io/github/license/tonytins/cstdotnet" alt="GitHub license"></a>
+  <a href="https://github.com/tonytins/cstdotnet/actions?query=workflow%3Adotnet.yml"><img src="https://img.shields.io/github/actions/workflow/status/tonytins/cstdotnet/dotnet.yml" alt="GitHub Workflow Status"></a>
+  <img src="https://img.shields.io/github/commit-activity/w/tonytins/cstdotnet" alt="GitHub commit activity">
+  <a href="code_of_conduct.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a>
+  <img src="https://img.shields.io/codeclimate/maintainability-percentage/tonytins/cstdotnet" alt="Code Climate maintainability">
+  <img src="https://img.shields.io/codeclimate/tech-debt/tonytins/cstdotnet" alt="Code Climate technical debt">
+</p>
+
 
 Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character. CST.NET is a library for parsing the CST format.
 
