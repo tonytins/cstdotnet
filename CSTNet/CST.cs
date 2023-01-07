@@ -34,10 +34,14 @@ public class CST
     /// Replaces the document's line endings with the native system line endings.
     /// </summary>
     /// <remarks>This stage ensures there are no crashes during parsing.</remarks>
+    /// <param name="content">The content of the document.</param>
+    /// <returns>The document's content with native system line endings.</returns>
     static IEnumerable<string> NormalizeEntries(string content)
     {
+        // Check if the document already uses native system line endings.
         if (!content.Contains(Environment.NewLine))
         {
+            // If not, check for and replace other line ending types.
             if (content.Contains(LF))
                 content = content.Replace(LF, Environment.NewLine);
 
@@ -51,9 +55,11 @@ public class CST
                 content = content.Replace(LS, Environment.NewLine);
         }
 
+        // Split the content by the caret and newline characters.
         var lines = content.Split(new[] { $"{CARET}{Environment.NewLine}" },
             StringSplitOptions.RemoveEmptyEntries);
 
+        // Filter out any lines that start with "//", "#", "/*", or end with "*/".
         return lines.Where(line =>
             !line.StartsWith("//") &&
             !line.StartsWith("#") &&
@@ -62,24 +68,34 @@ public class CST
             .AsEnumerable();
     }
 
+    /// <summary>
+    /// Retrieves the value for the specified key from the given entries.
+    /// </summary>
+    /// <param name="entries">The entries to search through.</param>
+    /// <param name="key">The key to search for.</param>
+    /// <returns>The value for the specified key, or a default string if not found.</returns>
     static string GetEntry(IEnumerable<string> entries, string key)
     {
-        // Search through list
+        // Iterate through the entries.
         foreach (var entry in entries)
         {
             // If the line doesn't start with the key, keep searching.
             if (!entry.StartsWith(key))
                 continue;
 
-            // Locate index, trim carets and return translation.
+            // Locate the index of the caret character.
             var startIndex = entry.IndexOf(CARET);
-            var line = entry.Substring(startIndex);
+            // Get the line from the caret character to the end of the string.
+            var line = entry[startIndex..];
 
+            // Return the line with the caret characters trimmed.
             return line.TrimStart(CARET).TrimEnd(CARET);
         }
 
+        // If no entry is found, return a default string.
         return "***MISSING***";
     }
+
 }
 
 

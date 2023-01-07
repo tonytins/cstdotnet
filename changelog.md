@@ -1,5 +1,9 @@
 # Change Log
 
+## 2.0.102
+
+- Properly commented and documented the rest of the code.
+
 ## 2.0.100
 
 This version supports both .NET Standard 2.1 and .NET 6 and brings with it (much needed) quality of life changes internally. Apart from that, nothing has changed to the API itself apart from much needed documentation.
