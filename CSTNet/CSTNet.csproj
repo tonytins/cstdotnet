@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0</TargetFrameworks>
-        <Version>2.0.102</Version>
+        <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
+        <Version>2.0.103</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Authors>Tony Bark</Authors>
         <PackageDescription>
-            Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. ([key] ^[value]^)
+            Caret-Separated Text (or CST) is a key-value pair format represented by digits or words
+            as keys and the value as text enclosed between carets. ([key] ^[value]^)
 
             CSTNet provides you the framework for parsing the CST format.
         </PackageDescription>

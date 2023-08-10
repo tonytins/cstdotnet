@@ -4,13 +4,12 @@
   <a href="https://github.com/tonytins/cstdotnet/blob/main/LICENSE"><img src="https://img.shields.io/github/license/tonytins/cstdotnet" alt="GitHub license"></a>
   <a href="https://github.com/tonytins/cstdotnet/actions?query=workflow%3Adotnet.yml"><img src="https://img.shields.io/github/actions/workflow/status/tonytins/cstdotnet/dotnet.yml" alt="GitHub Workflow Status"></a>
   <img src="https://img.shields.io/github/commit-activity/w/tonytins/cstdotnet" alt="GitHub commit activity">
-  <a href="code_of_conduct.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a>
+  <a href="code_of_conduct.md"></br>
   <img src="https://img.shields.io/codeclimate/maintainability-percentage/tonytins/cstdotnet" alt="Code Climate maintainability">
-  <img src="https://img.shields.io/codeclimate/tech-debt/tonytins/cstdotnet" alt="Code Climate technical debt">
+  <img src="https://img.shields.io/codeclimate/tech-debt/tonytins/cstdotnet" alt="Code Climate technical debt"> <a href="https://www.nuget.org/packages/tonybark.updatetools"><img src="https://img.shields.io/nuget/v/cstnet.svg" /></a></br><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a></br>
 </p>
 
-
-Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character. CST.NET is a library for parsing the CST format.
+CST.NET is a library for parsing the CST format. Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
 
 ## Changelog
 

@@ -78,7 +78,7 @@ public class UIText : IUIText
             if (second == -1)
                 continue;
 
-            ids = ids.Substring(1, second - 1);
+            ids = ids[1..second];
 
             // If the id of the current file does not match the id passed to the function,
             // skip to the next file.
