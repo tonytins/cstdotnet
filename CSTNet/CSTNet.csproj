@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
+        <TargetFrameworks>net6.0;netstandard2.1;net8.0</TargetFrameworks>
         <Version>2.0.103</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
@@ -16,9 +16,5 @@
         <RepositoryUrl>https://github.com/tonytins/cstdotnet</RepositoryUrl>
         <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="README.md" Pack="true" PackagePath="\" />
-    </ItemGroup>
 
 </Project>
