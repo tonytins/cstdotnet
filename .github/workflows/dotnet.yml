@@ -14,7 +14,7 @@ jobs:
             NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
         strategy:
             matrix:
-                dotnet: ["6.0.x"]
+                dotnet: ["8.0.x"]
                 platforms: ["ubuntu-latest", "windows-latest", "macos-latest"]
         steps:
             - uses: actions/checkout@v2
@@ -22,6 +22,7 @@ jobs:
               uses: actions/setup-dotnet@v3
               with:
                   dotnet-version: ${{ matrix.dotnet }}
+                  dotnet-quality: 'preview'
             - name: Install dependencies
               run: dotnet restore
             - name: Build
