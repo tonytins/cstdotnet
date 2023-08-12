@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFrameworks>net6.0;netstandard2.1;net8.0</TargetFrameworks>
-        <Version>2.0.103</Version>
+        <Version>2.0.200-beta1</Version>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -15,6 +15,11 @@
         </PackageDescription>
         <RepositoryUrl>https://github.com/tonytins/cstdotnet</RepositoryUrl>
         <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <!-- Support AOT on .NET 8+ -->
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+        <IsAotCompatible>true</IsAotCompatible>
     </PropertyGroup>
 
 </Project>

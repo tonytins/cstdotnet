@@ -1,5 +1,8 @@
 // This project is licensed under the BSD 3-Clause license.
 // See the LICENSE file in the project root for more information.
+#if NET8_0
+using System.Runtime.InteropServices;
+#endif
 
 namespace CSTNet;
 
@@ -29,6 +32,16 @@ public class CST
         var entries = NormalizeEntries(content);
         return GetEntry(entries, key);
     }
+
+#if NET8_0
+    [UnmanagedCallersOnly(EntryPoint = "parse")]
+    public static IntPtr Parse(IntPtr content, IntPtr key)
+    {
+        // => Parse(Marshal.PtrToStringAnsi(content), Marshal.PtrToStringAnsi(key));
+        var entries = NormalizeEntries(Marshal.PtrToStringAnsi(content));
+        return Marshal.StringToHGlobalAnsi(GetEntry(entries, Marshal.PtrToStringAnsi(key)));
+    }
+#endif
 
     /// <summary>
     /// Replaces the document's line endings with the native system line endings.
