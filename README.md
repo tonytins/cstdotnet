@@ -9,7 +9,9 @@
   <img src="https://img.shields.io/nuget/dt/CSTNet" alt="NuGet Downloads"> <a href="https://www.nuget.org/packages/tonybark.updatetools"><img src="https://img.shields.io/nuget/v/cstnet.svg" /></a></br><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a></br>
 </p>
 
-CST.NET is a library for parsing the CST format. Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
+CST.NET is a library for parsing Maxis' key-value pair format. It can be used in conjunction with your own custom frameworks, or the original ``UIText`` APIs.
+
+Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. ``<key> ^<text>^``) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
 
 ## Changelog
 
