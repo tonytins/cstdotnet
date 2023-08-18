@@ -27,3 +27,23 @@ jobs:
               run: dotnet restore
             - name: Build
               run: dotnet build --configuration Release --no-restore
+    test:
+        timeout-minutes: 15
+        continue-on-error: true
+        runs-on: "ubuntu-latest"
+        env:
+            NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+        strategy:
+            matrix:
+                dotnet: ["8.0.x"]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v3
+              with:
+                  dotnet-version: ${{ matrix.dotnet }}
+                  dotnet-quality: 'preview'
+            - name: Install dependencies
+              run: dotnet restore
+            - name: Test
+              run: dotnet test --no-restore
