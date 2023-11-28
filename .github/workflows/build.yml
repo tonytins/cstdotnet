@@ -27,6 +27,7 @@ jobs:
             - name: Build
               run: dotnet build --configuration Release --no-restore
     test:
+        needs: build
         timeout-minutes: 15
         continue-on-error: true
         runs-on: "ubuntu-latest"
