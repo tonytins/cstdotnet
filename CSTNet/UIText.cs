@@ -34,7 +34,7 @@ public class UIText : IUIText
     /// Loads the language file for the specified language and base directory.
     /// </summary>
     /// <param name="language">Language to load</param>
-    /// <param name="basePath">Base directory for the language files.</param>
+    /// <param name="baseBath">Base directory for the language files.</param>
     public UIText(string language, params string[] baseBath)
     {
         Language = language;

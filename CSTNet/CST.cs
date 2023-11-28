@@ -6,10 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace CSTNet;
 
-[Obsolete("Use CST class instead.")]
-public class CaretSeparatedText : CST { }
-
-public class CST
+public static class CST
 {
     const char CARET = '^';
     const string LF = "\u000A";
@@ -33,7 +30,7 @@ public class CST
         return GetEntry(entries, key);
     }
 
-#if NET8_0
+#if (NET8_0 && DEBUG)
     [UnmanagedCallersOnly(EntryPoint = "parse")]
     public static IntPtr Parse(IntPtr content, IntPtr key)
     {
@@ -56,16 +53,20 @@ public class CST
         {
             // If not, check for and replace other line ending types.
             if (content.Contains(LF))
-                content = content.Replace(LF, Environment.NewLine);
+                content = content.Replace(LF,
+	                Environment.NewLine);
 
             if (content.Contains(CR))
-                content = content.Replace(CR, Environment.NewLine);
+                content = content.Replace(CR,
+	                Environment.NewLine);
 
             if (content.Contains(CRLF))
-                content = content.Replace(CRLF, Environment.NewLine);
+                content = content.Replace(CRLF,
+	                Environment.NewLine);
 
             if (content.Contains(LS))
-                content = content.Replace(LS, Environment.NewLine);
+                content = content.Replace(LS,
+	                Environment.NewLine);
         }
 
         // Split the content by the caret and newline characters.

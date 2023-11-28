@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/tonytins/cstdotnet/blob/main/LICENSE"><img src="https://img.shields.io/github/license/tonytins/cstdotnet" alt="GitHub license"></a>
-  <a href="https://github.com/tonytins/cstdotnet/actions?query=workflow%3Adotnet.yml"><img src="https://img.shields.io/github/actions/workflow/status/tonytins/cstdotnet/dotnet.yml" alt="GitHub Workflow Status"></a>
+  <a href="https://github.com/tonytins/cstdotnet/actions?query=workflow%3Abuild.yml"><img src="https://img.shields.io/github/actions/workflow/status/tonytins/cstdotnet/build.yml" alt="GitHub Workflow Status"></a>
   <img src="https://img.shields.io/github/commit-activity/w/tonytins/cstdotnet" alt="GitHub commit activity">
   <a href="code_of_conduct.md"></br>
   <img src="https://img.shields.io/codeclimate/maintainability-percentage/tonytins/cstdotnet" alt="Code Climate maintainability">

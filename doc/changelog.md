@@ -1,10 +1,17 @@
 # Change Log
 
-## 2.0.200
+## 2.1.100
 
-- Preliminary support for .NET 8
-- Native compatibility
-  - Parser function can now be consumed from non-.NET programming languages
+- Removed `CaretSeparatedText` in favor of `CST` class
+- Due to technical reasons, .NET Standard Standard support was removed
+
+### Experimental
+
+- Parser function can now be consumed from non-.NET programming languages.
+
+## 2.0.104
+
+- Support for .NET 8
 
 ## 2.0.102
 
@@ -16,7 +23,7 @@ This version supports both .NET Standard 2.1 and .NET 6 and brings with it (much
 
 ### UIText class and interface
 
-Based on FreeSO's API, the ``UIText`` class allows for traversing in ``/<directory>/<language>.dir`` directories and searching CST files by their Id number. (e.g. _*154*_miscstrings.cst). By defualt, the base path is ``/<program directory>/uitext/<language>.dir``. You may also create your own implementation based on these APIs using the ``IUIText`` interface which mine also uses.
+Based on FreeSO's API, the `UIText` class allows for traversing in `/<directory>/<language>.dir` directories and searching CST files by their Id number. (e.g. \_*154*\_miscstrings.cst). By defualt, the base path is `/<program directory>/uitext/<language>.dir`. You may also create your own implementation based on these APIs using the `IUIText` interface which mine also uses.
 
 For more info, see [usage.md](./usage.md).
 
@@ -32,7 +39,7 @@ For more info, see [usage.md](./usage.md).
 ## 1.0.2
 
 - Fixed the multiple line parsing in the v2 format.
-- Replaced "``[ENTRY NOT FOUND]``" message with "``***MISSING***``".
+- Replaced "`[ENTRY NOT FOUND]`" message with "`***MISSING***`".
 
 ## 1.0.1
 

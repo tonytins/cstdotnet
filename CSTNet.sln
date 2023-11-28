@@ -6,9 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCFCE2DB-C18F-4D88-B025-19ED62BD2A1D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		changelog.md = changelog.md
 		README.md = README.md
-		usage.md = usage.md
+		doc\changelog.md = doc\changelog.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSTNet", "CSTNet\CSTNet.csproj", "{C5372E74-D1DF-4D15-B597-D1F517ECD0D8}"
