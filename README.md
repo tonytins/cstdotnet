@@ -10,7 +10,7 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 - [x] UIText Support
 - [ ] Variable support
 
-## 📅 Support & Update Cycle
+## 🗓️ Support & Update Cycle
 
 | Type         | Frequency        | Notes                                    |
 | ------------ | ---------------- | ---------------------------------------- |
@@ -28,7 +28,7 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
   - Critical vulnerabilities
   - Framework-breaking issues
 
-## 🛡️ Support Levels
+## 🛡️ Support
 
 - [ ] Active Support
 - [x] Limited Support (Security patches only)
