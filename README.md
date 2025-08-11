@@ -10,23 +10,13 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 - [x] UIText Support
 - [ ] Variable support
 
-## 🗓️ Support & Update Cycle
+## 🗓️ Update Cycle
 
-| Type         | Frequency        | Notes                                    |
-| ------------ | ---------------- | ---------------------------------------- |
-| Minor Update | Every 3–6 months | Small enhancements, non-breaking changes |
-| Patch Update | As needed        | Bug fixes, security updates              |
-| Major Update | 25 months        | Framework upgrades, major refactors      |
-
-- Reserve months: June (Mid-Year Chill) & December (End-Year Freeze)
-
-## 🧘 Sustainability Practices
-
-- 20% creative/recovery space built into development
-- Mandatory cooldowns after major launches (minimum 1 week)
-- Crisis Mode Activates if:
-  - Critical vulnerabilities
-  - Framework-breaking issues
+| Type         | Frequency            |
+| ------------ | -------------------- |
+| Minor Update | Every 3–6 months     |
+| Patch Update | Monthly or as needed |
+| Major Update | As needed            |
 
 ## 🛡️ Support
 
@@ -35,13 +25,12 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 - [ ] Maintenance Mode (Dependency-only updates)
 - [ ] Archived (No active work planned)
 
-## ⏰ Project Timeline
 
-| Milestone          | Target Date | Status  |
-| ------------------ | ----------- | ------- |
-| First Stable Build | 12/13/2020  | Done    |
-| Feature Complete   | N/A         | Planned |
-| Maintenance Phase  | N/A         | Planned |
+## 🧰 Prerequisites
+
+Before you begin, ensure you have the latest versions of the following installed:
+
+- [.NET 8.0](https://dotnet.microsoft.com/en-us/)
 
 ## 📓 Project Notes
 
