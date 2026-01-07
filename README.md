@@ -29,15 +29,18 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 
 Before you begin, ensure you have the latest versions of the following installed:
 
-- [.NET 8.0](https://dotnet.microsoft.com/en-us/)
+- [.NET](https://dotnet.microsoft.com/en-us/) 8.0 or later
 
-## 📓 Project Notes
+## 📝 Project Notes
 
-- This all began as a "what if?" What if I could make my own? So, I did. First from a Jupyter notebook and then a full-fledged project that technically has a support cycle.
 - While this project is technically feature complete, it is not a full drop-in replacement as it lacks variable (`%[digit]`) parsing.
 - I'm deprecating the `.sln` solution type in favour of `.slnx` going forward. It'll be removed sometime in the future.
 
-## 📄 License
+## 🔍 Background
+
+This all began as a "what if?" What if I could made my own CST parser? It was an attempt to create my first algorithm. One that was a little better than came before. So, I did. First from a Jupyter notebook and then a full-fledged project that now has it's own support cycle.
+
+## ⚖️ License
 
 I license this project under BSD-3-Clause license — see the [LICENSE](LICENSE) file for full text.
 
