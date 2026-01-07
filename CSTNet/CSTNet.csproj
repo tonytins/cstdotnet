@@ -7,6 +7,7 @@
 		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Authors>Tony Bark</Authors>
+		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
 		<PackageDescription>
 			Caret-Separated Text (or CST) is a key-value pair format represented by digits or words
 			as keys and the value as text enclosed between carets. ([key] ^[value]^)
@@ -17,10 +18,6 @@
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 	</PropertyGroup>
 
-	<!-- Support AOT on .NET 8+ -->
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-		<IsAotCompatible>true</IsAotCompatible>
-	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Update="DotNet.ReproducibleBuilds" Version="1.2.39" />
 	</ItemGroup>
