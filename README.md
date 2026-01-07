@@ -6,7 +6,7 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 
 ## 🛠 Features
 
-- [x] Native support for Sims Online's `.cst `files.
+- [x] Native support for Sims Online's `.cst` files.
 - [x] UIText Support
 - [ ] Variable support
 
@@ -25,7 +25,6 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 - [ ] Maintenance Mode (Dependency-only updates)
 - [ ] Archived (No active work planned)
 
-
 ## 🧰 Prerequisites
 
 Before you begin, ensure you have the latest versions of the following installed:
@@ -36,7 +35,9 @@ Before you begin, ensure you have the latest versions of the following installed
 
 - This all began as a "what if?" What if I could make my own? So, I did. First from a Jupyter notebook and then a full-fledged project that technically has a support cycle.
 - While this project is technically feature complete, it is not a full drop-in replacement as it lacks variable (`%[digit]`) parsing.
+- I'm deprecating the `.sln` solution type in favour of `.slnx` going forward. It'll be removed sometime in the future.
 
 ## 📄 License
 
 I license this project under BSD-3-Clause license — see the [LICENSE](LICENSE) file for full text.
+
