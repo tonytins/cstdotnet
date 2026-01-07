@@ -64,7 +64,5 @@ public class UIText : IUIText
 
 		return files.Any() ? CST.Parse(File.ReadAllText(files.First()), key) : "***MISSING***";
 	}
-
-
 }
 
