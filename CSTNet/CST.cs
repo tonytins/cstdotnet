@@ -1,6 +1,6 @@
 // This project is licensed under the BSD 3-Clause license.
 // See the LICENSE file in the project root for more information.
-#if NET8_0
+#if DEBUG
 using System.Runtime.InteropServices;
 #endif
 
@@ -30,7 +30,7 @@ public static class CST
 		return GetEntry(entries, key);
 	}
 
-#if (NET8_0 && DEBUG)
+#if DEBUG
 	[UnmanagedCallersOnly(EntryPoint = "parse")]
 	public static IntPtr Parse(IntPtr content, IntPtr key)
 	{
@@ -39,12 +39,13 @@ public static class CST
 		return Marshal.StringToHGlobalAnsi(GetEntry(entries, Marshal.PtrToStringAnsi(key)));
 	}
 #endif
+
 	/// <summary>
 	/// Normalizes the content by replacing various newline characters with Environment.NewLine and filters out comments.
 	/// </summary>
 	/// <param name="content">The content to normalize.</param>
 	/// <returns>An enumerable of normalized lines.</returns>
-	public static IEnumerable<string> NormalizeEntries(string content)
+	static IEnumerable<string> NormalizeEntries(string? content)
 	{
 		var newLines = new[] { LF, CR, CRLF, LS };
 
@@ -60,7 +61,7 @@ public static class CST
 	/// <param name="entries">The entries to search through.</param>
 	/// <param name="key">The key to search for.</param>
 	/// <returns>The value for the specified key, or a default string if not found.</returns>
-	static string GetEntry(IEnumerable<string> entries, string key)
+	static string GetEntry(IEnumerable<string> entries, string? key)
 	{
 		// Iterate through the entries.
 		foreach (var entry in entries)
