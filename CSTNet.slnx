@@ -1,7 +1,9 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
     <File Path="doc/changelog.md" />
+    <File Path="global.json" />
     <File Path="README.md" />
   </Folder>
   <Project Path="CSTNet.Tests/CSTNet.Tests.csproj" />
