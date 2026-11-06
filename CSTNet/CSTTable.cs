@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace CSTNet;
 
 /// <summary>
@@ -15,17 +17,21 @@ public sealed class CSTTable
 		_problems = Array.AsReadOnly(problems.ToArray());
 
 		var entryIndexes = new Dictionary<string, int>(StringComparer.Ordinal);
+		var keys = new HashSet<string>(StringComparer.Ordinal);
 		for (var index = 0; index < _entries.Count; index++)
 		{
 			var entry = _entries[index];
-			if (entry.Value is not null && entry.Key is not null)
-				entryIndexes.TryAdd(entry.Key, index);
+			if (entry.Key is null || !keys.Add(entry.Key))
+				continue;
+
+			if (entry.Value is not null)
+				entryIndexes.Add(entry.Key, index);
 		}
 
 		for (var index = 0; index < _entries.Count; index++)
 		{
 			var entry = _entries[index];
-			if (entry.Value is not null && entry.Name is not null)
+			if (entry.Value is not null && entry.Name is not null && !keys.Contains(entry.Name))
 				entryIndexes.TryAdd(entry.Name, index);
 		}
 
@@ -63,14 +69,17 @@ public sealed class CSTTable
 	/// <param name="value">The value when found; otherwise, <see langword="null"/>.</param>
 	/// <returns><see langword="true"/> if a closed value was found; otherwise, <see langword="false"/>.</returns>
 	/// <exception cref="ArgumentNullException"><paramref name="key"/> is <see langword="null"/>.</exception>
-	public bool TryGetValue(string key, out string? value)
+	public bool TryGetValue(string key, [NotNullWhen(true)] out string? value)
 	{
 		ArgumentNullException.ThrowIfNull(key);
 
 		if (_entryIndexes.TryGetValue(key, out var index))
 		{
-			value = _entries[index].Value;
-			return true;
+			if (_entries[index].Value is { } entryValue)
+			{
+				value = entryValue;
+				return true;
+			}
 		}
 
 		value = null;

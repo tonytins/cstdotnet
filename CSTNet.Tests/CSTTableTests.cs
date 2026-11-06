@@ -206,6 +206,27 @@ public class CSTTableTests
 	}
 
 	[Fact]
+	public void UnclosedKeyBlocksLaterValuesWithTheSameKey()
+	{
+		const string content = """
+			repeated ^unfinished
+			repeated ^closed later^
+			""";
+
+		var table = CSTTable.Parse(content);
+
+		Assert.False(table.TryGetValue("repeated", out _));
+		Assert.Collection(
+			table.Problems,
+			problem => Assert.Equal(CSTProblemKind.UnclosedValue, problem.Kind),
+			problem =>
+			{
+				Assert.Equal(CSTProblemKind.RepeatedKey, problem.Kind);
+				Assert.Equal("repeated", problem.Key);
+			});
+	}
+
+	[Fact]
 	public void LeavesPlaceholdersAndReferencesUntouched()
 	{
 		const string reference = "\u0002<cst><cst_id>276</cst_id><string_id>1</string_id></cst>";
@@ -213,6 +234,15 @@ public class CSTTableTests
 
 		Assert.True(table.TryGetValue("1", out var value));
 		Assert.Equal($"Hello %s %% {reference}", value);
+	}
+
+	[Fact]
+	public void LegacyParseUsesExactKeyLookupAndMissingMarker()
+	{
+		const string content = "10 ^ten^\n";
+
+		Assert.Equal("ten", CST.Parse(content, "10"));
+		Assert.Equal("***MISSING***", CST.Parse(content, "1"));
 	}
 
 	[Fact]

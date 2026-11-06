@@ -183,6 +183,9 @@ internal sealed class CSTScanner
 	{
 		Entries.Add(new CSTEntry(openValue.Key, openValue.Name, null));
 		Problems.Add(new CSTProblem(CSTProblemKind.UnclosedValue, openValue.Line, null));
+
+		if (openValue.Key is not null && !_seenKeys.Add(openValue.Key))
+			Problems.Add(new CSTProblem(CSTProblemKind.RepeatedKey, openValue.Line, openValue.Key));
 	}
 
 	private sealed record OpenValue(string? Key, string? Name, int Line, string Text, string? LastTextLine);
