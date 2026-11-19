@@ -109,6 +109,71 @@ public class UIText : IUIText
 		return TryGetReference(targetValue, out _) ? null : targetValue;
 	}
 
+	/// <summary>
+	/// Gets the text for the given table id and key or zero-based position, and fills its placeholders.
+	/// </summary>
+	/// <param name="id">The id of the text table.</param>
+	/// <param name="key">The key or zero-based position of the text.</param>
+	/// <param name="variables">The values for the placeholders, in order, as <see cref="CST.Format"/> takes them.</param>
+	/// <returns>The filled text, or the missing marker if the table or value is missing.</returns>
+	/// <exception cref="ArgumentNullException"><paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="ArgumentException">One of <paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="IOException">A table file or directory cannot be read.</exception>
+	/// <exception cref="UnauthorizedAccessException">A table file or directory is inaccessible.</exception>
+	public string GetText(int id, int key, params object?[] variables) =>
+		GetText(id, key.ToString(CultureInfo.InvariantCulture), variables);
+
+	/// <summary>
+	/// Gets the text for the given table id and key, name, or zero-based position, and fills its placeholders.
+	/// </summary>
+	/// <param name="id">The id of the text table.</param>
+	/// <param name="key">The key, name, or zero-based position to find.</param>
+	/// <param name="variables">The values for the placeholders, in order, as <see cref="CST.Format"/> takes them.</param>
+	/// <returns>The filled text, or the missing marker if the table or value is missing.</returns>
+	/// <exception cref="ArgumentNullException"><paramref name="key"/> or <paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="ArgumentException">One of <paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="IOException">A table file or directory cannot be read.</exception>
+	/// <exception cref="UnauthorizedAccessException">A table file or directory is inaccessible.</exception>
+	public string GetText(int id, string key, params object?[] variables) =>
+		GetTextIfPresent(id, key, variables) ?? MISSING;
+
+	/// <summary>
+	/// Gets the text for the given table id and key or zero-based position and fills its placeholders,
+	/// or returns <see langword="null"/> if it is missing.
+	/// </summary>
+	/// <param name="id">The id of the text table.</param>
+	/// <param name="key">The key or zero-based position to find.</param>
+	/// <param name="variables">The values for the placeholders, in order, as <see cref="CST.Format"/> takes them.</param>
+	/// <returns>The filled text, or <see langword="null"/> if the table or value is missing.</returns>
+	/// <exception cref="ArgumentNullException"><paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="ArgumentException">One of <paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="IOException">A table file or directory cannot be read.</exception>
+	/// <exception cref="UnauthorizedAccessException">A table file or directory is inaccessible.</exception>
+	public string? GetTextIfPresent(int id, int key, params object?[] variables) =>
+		GetTextIfPresent(id, key.ToString(CultureInfo.InvariantCulture), variables);
+
+	/// <summary>
+	/// Gets the text for the given table id and key, name, or zero-based position and fills its
+	/// placeholders, or returns <see langword="null"/> if it is missing.
+	/// </summary>
+	/// <remarks>
+	/// For a reference to another table, the variables fill the target's text.
+	/// </remarks>
+	/// <param name="id">The id of the text table.</param>
+	/// <param name="key">The key, name, or zero-based position to find.</param>
+	/// <param name="variables">The values for the placeholders, in order, as <see cref="CST.Format"/> takes them.</param>
+	/// <returns>The filled text, or <see langword="null"/> if the table or value is missing.</returns>
+	/// <exception cref="ArgumentNullException"><paramref name="key"/> or <paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="ArgumentException">One of <paramref name="variables"/> is <see langword="null"/>.</exception>
+	/// <exception cref="IOException">A table file or directory cannot be read.</exception>
+	/// <exception cref="UnauthorizedAccessException">A table file or directory is inaccessible.</exception>
+	public string? GetTextIfPresent(int id, string key, params object?[] variables)
+	{
+		var texts = CSTPlaceholders.ToTexts(variables, nameof(variables));
+
+		return GetTextIfPresent(id, key) is { } text ? CSTPlaceholders.Fill(text, texts) : null;
+	}
+
 	CSTTable? GetTable(int id)
 	{
 		var filePath = FindTablePath(id);

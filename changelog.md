@@ -42,6 +42,11 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
 - `UIText` also finds tables in `uitext/<language>.dir` (New & Improved) and `uitext.dir`
   (earlier versions), decodes non-UTF-8 tables as Windows-1252, finds values with no key by
   their position from 0, and follows references to other tables.
+- Variables: `CST.Format` fills a value's placeholders in order. `%s`, `%d`, `%i`, `%u`,
+  `%ld`, `%li`, and `%lu` each take a variable, `%3d` pads with spaces, `%03d` and `%.3d` pad
+  with zeros, and `%%` becomes one percent sign. Placeholders with no variable left stay as
+  written. `CST.Parse`, `UIText.GetText`, and `UIText.GetTextIfPresent` take variables after
+  the key, and leave values untouched without them.
 - `UIText` also reads a table file with no name after its ID, such as `_7_.cst`.
 - CST.NET reads tables without LINQ, reflection, or code page providers, so it can run where
   those aren't available, and it is marked compatible with trimming and native AOT.

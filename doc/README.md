@@ -114,10 +114,42 @@ Values come back exactly as written, except for line breaks:
 
 - **Line breaks** inside a value are always `\n`, whatever the file uses and whatever system
   you run on.
-- **Placeholders** such as `%s`, `%d`, and `%%` stay as written. Fill them in yourself, for
-  example with your own formatting code.
+- **Placeholders** such as `%s`, `%d`, and `%%` stay as written until you
+  [fill them in](#fill-in-placeholders).
 - **References** to another table, values starting with the character U+0002, stay as written
   in a `CSTTable`. `UIText` follows them for you.
+
+## Fill in placeholders
+
+Pass variables to `CST.Format`, and they fill a value's placeholders in order:
+
+```csharp
+if (table.TryGetValue("3", out var welcome))
+    Console.WriteLine(CST.Format(welcome, "Maya")); // Welcome back, Maya!
+```
+
+| Placeholder | Fills in |
+| --- | --- |
+| `%s` | The next variable |
+| `%d`, `%i`, `%u`, `%ld`, `%li`, `%lu` | The next variable, usually a number |
+| `%3d` | The next variable, padded with spaces to at least 3 characters |
+| `%03d` | The next variable, padded with zeros to at least 3 characters, after any minus sign |
+| `%.3d` | The next variable, padded with zeros to at least 3 digits, after any minus sign |
+| `%%` | One percent sign |
+
+Variables are written the same way on every system, so `1.5` never becomes `1,5`. Padding
+never shortens a number, and a width over 1,000 pads nothing. Text a variable puts in isn't
+read for placeholders again.
+
+If you run out of variables, the remaining placeholders stay as written, so the mistake shows.
+Any other `%`, such as in `to sell % for $`, is left alone. A `null` variable throws an
+`ArgumentException`.
+
+`CST.Parse` and `UIText`'s lookups also take variables after the key:
+
+```csharp
+var welcome = text.GetTextIfPresent(101, 3, "Maya"); // Welcome back, Maya!
+```
 
 ## Read text from a TSO install
 
@@ -166,15 +198,18 @@ If a table file or folder can't be read, both methods throw an `IOException` or
 - Installs with `uitext.dir` hold one language. `UIText` uses it for any language you ask for.
 - `UIText` reads and parses the table file on every lookup. For many lookups in one table,
   parse it once with `CSTTable` instead, and decode the file yourself if it isn't UTF-8.
-- Placeholders in a reference, such as `<string arg="1">%s</string>`, aren't passed on. You
-  get the target's text with its placeholders as written.
+- A reference's own arguments, such as `<string arg="1">%s</string>`, aren't passed on. The
+  variables you pass fill the target's text.
 
 ## Quick lookups
 
-`CST.Parse` looks up one value in a string, and returns `***MISSING***` if there's no match:
+`CST.Parse` looks up one value in a string, and returns `***MISSING***` if there's no match.
+Variables after the key fill its placeholders:
 
 ```csharp
-var cancel = CST.Parse(File.ReadAllText("_101_purchase.cst"), 2); // Cancel
+var content = File.ReadAllText("_101_purchase.cst");
+var cancel = CST.Parse(content, 2); // Cancel
+var welcome = CST.Parse(content, 3, "Maya"); // Welcome back, Maya!
 ```
 
 It parses the whole table on every call and can't tell a missing value from real text.

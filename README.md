@@ -11,7 +11,7 @@ Caret-Separated Text (or CST) is a string-text format: a plain-text resource for
 - [x] TSO compatible, checked against the beta, base game, and New & Improved
     - [x] Values with no key, and names above values
     - [x] Keys with spaces, and indented keys
-    - [ ] Variables
+    - [x] Variables
     - [x] UTF-8 and Windows-1252 files
     - [x] References between tables
 - [ ] Sims Steering Committee compatible
@@ -38,13 +38,13 @@ using CSTNet;
 var table = CSTTable.Parse("1 ^Hello, %s!^\nok button ^Accept^");
 
 if (table.TryGetValue("1", out var hello))
-    Console.WriteLine(hello); // Hello, %s!
+    Console.WriteLine(CST.Format(hello, "World")); // Hello, World!
 
 Console.WriteLine(table.Entries.Count); // Every value, in file order
 Console.WriteLine(table.Problems.Count); // Anything malformed
 ```
 
-`TryGetValue` returns `false` for a missing key, so it can't be mistaken for real text. A key must match whole, so `ok` doesn't find `ok button`. Values come back as written, with placeholders such as `%s` left for your code to fill.
+`TryGetValue` returns `false` for a missing key, so it can't be mistaken for real text. A key must match whole, so `ok` doesn't find `ok button`. Values come back as written, and `CST.Format` fills placeholders such as `%s` and `%03d` in order.
 
 For a one-off lookup, `CST.Parse` returns the value, or `***MISSING***` for a missing key:
 
