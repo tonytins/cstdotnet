@@ -9,7 +9,7 @@ These are defaults. When one disagrees with the project's existing conventions o
 
 ## Workflow
 
-### Before changing code
+### Before Changing Code
 
 - Check the SDK with `dotnet --list-sdks`. If `dotnetup` is present, `dotnetup list` shows what it manages. If neither works, check `DOTNET_ROOT`. If the SDK is still missing or broken, stop and ask rather than working around it.
 - Read the project file, plus `global.json`, `Directory.Build.props`, and `Directory.Packages.props` if they exist. Note the target frameworks, `LangVersion`, nullable setting, and whether warnings are errors.
@@ -48,23 +48,25 @@ Break a change that spans many files or systems into named, sequential phases, s
 
 Four settings are easy to mix up, and they fail differently:
 
-| Setting | Controls | When it's too new |
-| --- | --- | --- |
-| SDK (`global.json`) | Which toolchain builds the project | `A compatible .NET SDK was not found`, or `NETSDK1045` if the SDK is older than the target framework |
-| Target framework | Which APIs exist and which runtime is required | Compile errors on the missing API |
-| `LangVersion` | Which syntax is allowed | Compile errors, or `CS1617` if the SDK doesn't know that version |
-| Platform-specific APIs | Which operating systems an API works on | `CA1416` warning, then a runtime failure |
+| Setting                | Controls                                       | When it's too new                                                                                    |
+| ---------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| SDK (`global.json`)    | Which toolchain builds the project             | `A compatible .NET SDK was not found`, or `NETSDK1045` if the SDK is older than the target framework |
+| Target framework       | Which APIs exist and which runtime is required | Compile errors on the missing API                                                                    |
+| `LangVersion`          | Which syntax is allowed                        | Compile errors, or `CS1617` if the SDK doesn't know that version                                     |
+| Platform-specific APIs | Which operating systems an API works on        | `CA1416` warning, then a runtime failure                                                             |
 
-### Target frameworks
+### Target Frameworks
 
-**Target the oldest framework you actually build and test against**, not the newest one installed. A framework nothing tests isn't really supported.
+**Target only the newest LTS framework.** Add a standard-term (STS) release or an older target only when a project has a concrete need for it, and run your tests against every target you ship, because a framework nothing tests isn't really supported.
 
-- **Multi-targeting needs each runtime.** A project with `net8.0;net10.0` compiles for both on one SDK, but running or testing `net8.0` needs that runtime installed. Check with `dotnet run -f net8.0`.
-- **Building on a newer SDK proves little.** SDK 10 can compile `net8.0` code with `LangVersion` 14, but SDK 8 rejects that project. If older SDKs matter, build with one in CI or pin it in `global.json`.
+Don't rely on memory for which release is the newest LTS, since a new one ships every two years. Check Microsoft's [.NET support policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core), which lists each release with its type (LTS or STS) and end-of-support date. Pick the newest LTS that is still in support and has shipped, not a preview.
+
+- **Each extra target needs its own runtime.** If you add a second target, confirm that each one runs with `dotnet run -f <tfm>` on a machine that has that runtime installed.
+- **A newer SDK proves little about older targets.** It can compile code that an older SDK rejects. If older SDKs matter, build with one in CI or pin it in `global.json`.
 - **Prefer real target frameworks over `netstandard2.0`** unless a real consumer needs it. It lacks helpers such as `ArgumentNullException.ThrowIfNull`, and it defaults to C# 7.3, where `<Nullable>enable</Nullable>` is an error until `LangVersion` is raised.
-- **Only pin the SDK when reproducibility matters.** A `global.json` with `"rollForward": "disable"` fails outright on a machine without that exact version.
+- **Pin the SDK only when reproducibility matters.** A `global.json` with `"rollForward": "disable"` fails outright on a machine without that exact version.
 
-### Language version
+### Language Version
 
 `LangVersion` defaults from the target framework, not from the SDK, so `net8.0` gets C# 12 even on SDK 10. Raising it above the default can compile, but Microsoft doesn't support that combination, and features that need runtime support can fail. Leave it at the default unless the project has a reason, and write the number down rather than using `latest`, so a new SDK doesn't change the language under the project.
 
@@ -88,7 +90,7 @@ if (OperatingSystem.IsWindows())
 
 `dotnetup` is .NET's rootless SDK manager, similar to `rustup`, and is still in preview. Use `-h` on it or any subcommand for options, since they may change.
 
-- It tracks channels such as `8` or `lts`, so name a channel rather than an exact patch: `dotnetup sdk install 8`.
+- It tracks channels such as `10` or `lts`, so name a channel rather than an exact patch: `dotnetup sdk install 8`.
 - `dotnetup update` applies servicing updates, and `dotnetup self update` updates the tool.
 - Installing or updating changes the user's machine, so ask first.
 
