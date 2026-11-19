@@ -1,8 +1,8 @@
 # Using CST.NET
 
 CST.NET reads Caret-Separated Text (`.cst`) tables, the plain-text format The Sims Online
-(TSO) uses for its interface text. Each value sits between two carets, and you find it by
-its key:
+(TSO) uses for its interface text, and Sims Steering Committee (SSC), a prototype of The Sims,
+used before it. Each value sits between two carets, and you find it by its key:
 
 ```text
 // Buttons for the purchase dialog

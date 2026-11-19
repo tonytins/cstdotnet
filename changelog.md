@@ -7,7 +7,8 @@
 CST.NET now reads tables the way the
 [CST specification](https://github.com/tonytins/swift-cst/blob/main/doc/CST.md) describes,
 and has been checked against every table in The Sims Online's beta, base game, and New &
-Improved installs. See the [usage guide](doc/README.md) for the new APIs.
+Improved installs, and in Sims Steering Committee, where it reads every entry the same as
+SwiftCST 0.4.0. See the [usage guide](doc/README.md) for the new APIs.
 
 #### Breaking changes
 
@@ -54,8 +55,9 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
   and can treat empty values as missing, the way Sims Steering Committee lays each person's
   tables over the global ones.
 - `UIText` also reads a table file with no name after its ID, such as `_7_.cst`.
-- CST.NET reads tables without LINQ, reflection, or code page providers, so it can run where
-  those aren't available, and it is marked compatible with trimming and native AOT.
+- `CSTTable`, `CSTDirectory`, `CSTLayers`, and `CST.Format` don't use LINQ, reflection, or code
+  page providers, so they can run where those aren't available. The library is marked
+  compatible with trimming and native AOT.
 
 ### 2.1.100
 
@@ -64,7 +66,8 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
 
 #### Experimental
 
-- Parser function can now be consumed from non-.NET programming languages.
+- Parser function can now be consumed from non-.NET programming languages. It's only in Debug
+  builds, so the package on NuGet doesn't include it.
 
 ## 2.0
 
