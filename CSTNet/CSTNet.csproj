@@ -1,18 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
-		<Version>2.1.101-alpha</Version>
+		<TargetFramework>net10.0</TargetFramework>
+		<Version>2.1.200-alpha</Version>
 		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Authors>Tony Bark</Authors>
-		<AllowMissingPrunePackageData>true</AllowMissingPrunePackageData>
 		<PackageDescription>
-			Caret-Separated Text (or CST) is a key-value pair format represented by digits or words
-			as keys and the value as text enclosed between carets. ([key] ^[value]^)
-
-			CSTNet provides you the framework for parsing the CST format.
+			Reads Caret-Separated Text (.cst), the plain-text format The Sims Online uses for its
+			interface text, where each value sits between two carets after its key: 1 ^Buy^.
+			Follows the CST specification, reports malformed entries without losing the rest of a
+			table, and includes UIText for loading text from a TSO install.
 		</PackageDescription>
 		<RepositoryUrl>https://github.com/tonytins/cstdotnet</RepositoryUrl>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
