@@ -1,14 +1,12 @@
 // This project is licensed under the BSD 3-Clause license.
 // See the LICENSE file in the project root for more information.
 using System.Globalization;
-using System.Text;
 
 namespace CSTNet;
 
 public class UIText : IUIText
 {
 	const string MISSING = "***MISSING***";
-	static readonly UTF8Encoding STRICT_UTF8 = new(false, true);
 
 	/// <summary>
 	/// The language of the text.
@@ -118,7 +116,7 @@ public class UIText : IUIText
 			return null;
 
 		var bytes = File.ReadAllBytes(filePath);
-		return CSTTable.Parse(Decode(bytes));
+		return CSTTable.Parse(CSTFiles.Decode(bytes));
 	}
 
 	string? FindTablePath(int id)
@@ -131,7 +129,7 @@ public class UIText : IUIText
 			foreach (var filePath in Directory.EnumerateFiles(directory)
 				.OrderBy(path => Path.GetFileName(path), StringComparer.Ordinal))
 			{
-				if (TryGetTableId(Path.GetFileName(filePath), out var tableId) && tableId == id)
+				if (CSTFiles.TryGetTableId(Path.GetFileName(filePath), CSTFiles.TSOSeparators, out var tableId) && tableId == id)
 					return filePath;
 			}
 		}
@@ -156,40 +154,6 @@ public class UIText : IUIText
 		}
 
 		return directories.Distinct(StringComparer.Ordinal);
-	}
-
-	static bool TryGetTableId(string fileName, out int id)
-	{
-		id = default;
-		if (!string.Equals(Path.GetExtension(fileName), ".cst", StringComparison.OrdinalIgnoreCase))
-			return false;
-
-		var stem = Path.GetFileNameWithoutExtension(fileName);
-		if (stem.Length == 0 || stem[0] != '_')
-			return false;
-
-		var separator = stem.IndexOf('_', 1);
-		if (separator <= 1 || separator == stem.Length - 1)
-			return false;
-
-		return int.TryParse(
-			stem.AsSpan(1, separator - 1),
-			NumberStyles.None,
-			CultureInfo.InvariantCulture,
-			out id);
-	}
-
-	static string Decode(byte[] bytes)
-	{
-		try
-		{
-			return STRICT_UTF8.GetString(bytes);
-		}
-		catch (DecoderFallbackException)
-		{
-			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-			return Encoding.GetEncoding(1252).GetString(bytes);
-		}
 	}
 
 	static string? GetValue(CSTTable table, string key)

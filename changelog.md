@@ -42,6 +42,9 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
 - `UIText` also finds tables in `uitext/<language>.dir` (New & Improved) and `uitext.dir`
   (earlier versions), decodes non-UTF-8 tables as Windows-1252, finds values with no key by
   their position from 0, and follows references to other tables.
+- `UIText` also reads a table file with no name after its ID, such as `_7_.cst`.
+- CST.NET reads tables without LINQ, reflection, or code page providers, so it can run where
+  those aren't available, and it is marked compatible with trimming and native AOT.
 
 ### 2.1.100
 

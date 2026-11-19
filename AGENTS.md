@@ -4,16 +4,18 @@
 
 CST.NET is a general-purpose .NET library for Caret-Separated Text (`.cst`), a
 string-text format Maxis used in Sims Steering Committee (SSC) and later in The Sims
-Online (TSO) for its interface text. It has two layers, and text lookups run through
-them in this order: `UIText`, then the CST core.
+Online (TSO) for its interface text. It has two layers: wrappers that load files, then the
+CST core they read through.
 
 - **CST core** (`CSTTable`, `CSTEntry`, `CSTProblem`, and the older `CST.Parse`) reads a
   document from a `string`. It is public so anyone can write their own wrapper, and it
   must not assume TSO's file layout. It owns comments, keys, names, values, and malformed
   entries.
-- **`UIText`** mimics how TSO loads its text, and it may be TSO-specific. It owns TSO's
-  file names, language directories, text encodings, positions in key lookups, and
-  references. It should use only the core's public API.
+- **Wrappers** find tables on disk and answer lookups. They use only the core's public API,
+  apart from `CSTFiles`, a shared internal helper that reads table file names and decodes
+  files as UTF-8 or Windows-1252.
+  - **`UIText`** mimics how TSO loads its text, and it may be TSO-specific. It owns TSO's
+    file names, language directories, positions in key lookups, and references.
 
 `CSTNet` holds the library, and `CSTNet.Tests` covers its behavior with xUnit v3.
 [doc/README.md](doc/README.md) documents usage, and [changelog.md](changelog.md)
@@ -45,6 +47,9 @@ dotnet test    # all tests must pass
   framework; don't set `LangVersion`.
 - Keep public APIs clear at the call site, and document all public behavior with XML
   comments.
+- Keep the core and `CSTFiles` free of LINQ, reflection, and code page providers, so they
+  run where those haven't been shown to work, such as VentureOS's Cosmos kernel. The
+  library builds with `IsAotCompatible`, so trimming and AOT problems show up as warnings.
 
 ## Golden Rules
 
