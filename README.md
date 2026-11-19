@@ -76,7 +76,7 @@ See the [usage guide](doc/README.md) for how keys are found, problems, and `UITe
 
 ## Background
 
-This all began as a "what if?" What if I could made my own CST parser? It was an attempt to create my first algorithm. One that was a little better than came before. So, I did. First from a Jupyter notebook and then a full-fledged project that now has it's own support cycle.
+This all began as a "what if?" What if I could made my own CST parser? It was an attempt to create my first algorithm. One that was a little better than came before. So, I did. First from a Jupyter notebook and then a full-fledged project that's taken on a life of it's own!
 
 ## License
 
