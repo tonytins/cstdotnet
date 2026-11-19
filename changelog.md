@@ -47,6 +47,12 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
   with zeros, and `%%` becomes one percent sign. Placeholders with no variable left stay as
   written. `CST.Parse`, `UIText.GetText`, and `UIText.GetTextIfPresent` take variables after
   the key, and leave values untouched without them.
+- `CSTDirectory` reads every table in a folder at once, named either `_<id>_<name>.cst`, as The
+  Sims Online does, or `#<id>#<name>.cst`, as Sims Steering Committee does. A second file with
+  the same ID is reported in `Problems` and skipped.
+- `CSTLayers` looks a value up through several directories in order, by key, name, or position,
+  and can treat empty values as missing, the way Sims Steering Committee lays each person's
+  tables over the global ones.
 - `UIText` also reads a table file with no name after its ID, such as `_7_.cst`.
 - CST.NET reads tables without LINQ, reflection, or code page providers, so it can run where
   those aren't available, and it is marked compatible with trimming and native AOT.

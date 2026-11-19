@@ -14,9 +14,9 @@ Caret-Separated Text (or CST) is a string-text format: a plain-text resource for
     - [x] Variables
     - [x] UTF-8 and Windows-1252 files
     - [x] References between tables
-- [ ] Sims Steering Committee compatible
+- [x] Sims Steering Committee compatible
     - [x] Numbered keys such as `1.label` and `1:`
-    - [ ] `.dir` folders of `#<id>#<name>.cst` tables, laid over one another
+    - [x] `.dir` folders of `#<id>#<name>.cst` tables, laid over one another
 - [x] Multiline values
 - [x] C-style comments
 - [x] Malformed entries reported rather than stopping the read
@@ -65,7 +65,18 @@ if (text.GetTextIfPresent(154, 1) is { } greeting)
 
 `GetTextIfPresent` returns `null` for a missing table or key, while `GetText` returns `***MISSING***`. Filesystem errors are thrown to the caller. Each lookup reads the table again, so for many lookups in one table, use `CSTTable`.
 
-See the [usage guide](doc/README.md) for how keys are found, problems, and `UIText`'s limits, and the [changelog](changelog.md) for what changed in each release.
+### Folders and layers
+
+For a game's own tables kept directly in a folder, such as Sims Steering Committee's `.dir` folders, `CSTDirectory` reads every `#<id>#<name>.cst` or `_<id>_<name>.cst` table at once. `CSTLayers` looks through several directories in order, such as a person's tables over the global ones:
+
+```csharp
+var layers = new CSTLayers(CSTDirectory.Read(rossPath), CSTDirectory.Read(globalPath));
+
+if (layers.TryGetValueAt(130, 20, out var animation, treatEmptyAsMissing: true))
+    Console.WriteLine(animation); // Ross's slot is empty, so this is the global table's value
+```
+
+See the [usage guide](doc/README.md) for how keys are found, problems, `UIText`'s limits, and layers, and the [changelog](changelog.md) for what changed in each release.
 
 ## Supported Versions
 

@@ -64,6 +64,45 @@ public class InstalledTableTests
 		}
 	}
 
+	[Fact]
+	public void ReadsEveryTableDirectoryOfAvailableLocalInstalls()
+	{
+		var checkedInstalls = 0;
+		foreach (var name in new[] { "TSO_GAME_DIR", "TSO_CLASSIC_DIR", "TSO_BETA_DIR" })
+		{
+			var root = Environment.GetEnvironmentVariable(name);
+			if (string.IsNullOrWhiteSpace(root))
+				continue;
+
+			var gameData = Path.Combine(root, "gamedata");
+			var newLayout = Path.Combine(gameData, "uitext", "english.dir");
+			var tableDirectory = Directory.Exists(newLayout) ? newLayout : Path.Combine(gameData, "uitext.dir");
+
+			var directory = CSTDirectory.Read(tableDirectory);
+			Assert.Empty(directory.Problems);
+
+			var fileCount = 0;
+			foreach (var path in Directory.EnumerateFiles(tableDirectory))
+			{
+				if (!TryGetTableId(Path.GetFileName(path), out var id))
+					continue;
+
+				fileCount++;
+				var expected = CSTTable.Parse(Decode(File.ReadAllBytes(path)));
+				Assert.True(directory.TryGetTable(id, out var actual), $"{name} table {id} is missing.");
+				Assert.Equal(
+					expected.Entries.Select(entry => (entry.Key, entry.Name, entry.Value)),
+					actual.Entries.Select(entry => (entry.Key, entry.Name, entry.Value)));
+			}
+
+			Assert.Equal(fileCount, directory.Tables.Count);
+			checkedInstalls++;
+		}
+
+		if (checkedInstalls == 0)
+			Assert.Skip("No local TSO installation directory is configured.");
+	}
+
 	private static string Decode(byte[] bytes)
 	{
 		try

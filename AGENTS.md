@@ -16,6 +16,9 @@ CST core they read through.
   files as UTF-8 or Windows-1252.
   - **`UIText`** mimics how TSO loads its text, and it may be TSO-specific. It owns TSO's
     file names, language directories, positions in key lookups, and references.
+  - **`CSTDirectory`** and **`CSTLayers`** are the general loader, first built for SSC's
+    `.dir` folders. They own both file name patterns and lookups through layers, and must
+    not assume either game's meaning for a value.
 
 `CSTNet` holds the library, and `CSTNet.Tests` covers its behavior with xUnit v3.
 [doc/README.md](doc/README.md) documents usage, and [changelog.md](changelog.md)

@@ -201,6 +201,56 @@ If a table file or folder can't be read, both methods throw an `IOException` or
 - A reference's own arguments, such as `<string arg="1">%s</string>`, aren't passed on. The
   variables you pass fill the target's text.
 
+## Read a folder of tables
+
+`CSTDirectory.Read` reads every table in one folder at once. It accepts both games' file
+names: The Sims Online's `_101_strings.cst` and Sims Steering Committee's
+`#128#Animations.cst`. Other files and subfolders are ignored.
+
+```csharp
+var global = CSTDirectory.Read("/path/to/TDSScen/Global/Global.dir");
+
+if (global.TryGetTable(128, out var animations))
+    Console.WriteLine(animations.Entries.Count);
+```
+
+Files are decoded as UTF-8, or as Windows-1252 when they aren't valid UTF-8. Once read, a
+`CSTDirectory` never touches the disk again, so later changes to the files aren't seen.
+
+If two files have the same ID, the first by name is kept, and the other is listed in
+`Problems` with the `RepeatedTable` kind. Problems inside a table are in that table's own
+`Problems`.
+
+If the folder or one of its files can't be read, `Read` throws a `DirectoryNotFoundException`,
+`IOException`, or `UnauthorizedAccessException`.
+
+To build a directory from tables you already have, pass them to the constructor:
+`new CSTDirectory(new Dictionary<int, CSTTable> { [1] = table })`.
+
+## Lay tables over one another
+
+`CSTLayers` looks a value up in several directories in order, and returns the first one it
+finds. Sims Steering Committee uses this to lay each person's tables over the global ones,
+so list the top layer first:
+
+```csharp
+var ross = CSTDirectory.Read("/path/to/TDSScen/Objects/ross.dir");
+var layers = new CSTLayers(ross, global);
+
+if (layers.TryGetValueAt(130, 66, out var animation))
+    Console.WriteLine(animation); // ross-standing-loop, where the global table has duchess-standing-loop
+```
+
+- `TryGetValue` finds a value by its key or name, and `TryGetValueAt` by its position. Positions
+  count every value in a table from 0, including values with keys.
+- A missing table, a missing value, and a value that was never closed all move on to the next
+  layer.
+- An empty value is returned as it is, because most empty values are real empty text. Pass
+  `treatEmptyAsMissing: true` to move on to the next layer instead, which is what an empty value
+  means in Sims Steering Committee's person tables.
+
+The layers don't change once created. To add or remove one, create a new `CSTLayers`.
+
 ## Quick lookups
 
 `CST.Parse` looks up one value in a string, and returns `***MISSING***` if there's no match.
