@@ -50,7 +50,7 @@ public static class CST
 	/// </summary>
 	/// <param name="content">The content to normalize.</param>
 	/// <returns>The separated text segments.</returns>
-	public static IEnumerable<string> NormalizeEntries(string content)
+	internal static IEnumerable<string> NormalizeEntries(string content)
 	{
 		ArgumentNullException.ThrowIfNull(content);
 
