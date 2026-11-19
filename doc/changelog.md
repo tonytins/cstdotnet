@@ -2,6 +2,14 @@
 
 ## 2.1
 
+### Unreleased
+
+- Numbered keys: a number followed by a period or colon, such as `1.new house window name`,
+  `5.`, or `1:`, now gives the key `1` (or `5`) and uses any text after the separator as the
+  value's name. A lookup finds the value by either. A digit right after the separator, as in
+  `1.5` or `10:30`, still makes the whole text the key. This follows the CST specification's
+  rule for Sims Steering Committee tables, and it changes nothing in The Sims Online's tables.
+
 ### 2.1.101
 
 - Bumped target framework to .NET 10

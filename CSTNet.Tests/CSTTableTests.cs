@@ -21,6 +21,9 @@ public class CSTTableTests
 			^A value with a note above it^
 			^A value on its own^ with a note after it
 			^Another value on its own^
+			9.A label
+			^A numbered key above its value^
+			10: ^A numbered key on its line^
 			""";
 
 		var table = CSTTable.Parse(content);
@@ -35,13 +38,75 @@ public class CSTTableTests
 			entry => Assert.Equal((null, "kErrNoFood", "A name above its value"), (entry.Key, entry.Name, entry.Value)),
 			entry => Assert.Equal((null, "A note for translators.", "A value with a note above it"), (entry.Key, entry.Name, entry.Value)),
 			entry => Assert.Equal((null, null, "A value on its own"), (entry.Key, entry.Name, entry.Value)),
-			entry => Assert.Equal((null, null, "Another value on its own"), (entry.Key, entry.Name, entry.Value)));
+			entry => Assert.Equal((null, null, "Another value on its own"), (entry.Key, entry.Name, entry.Value)),
+			entry => Assert.Equal(("9", "A label", "A numbered key above its value"), (entry.Key, entry.Name, entry.Value)),
+			entry => Assert.Equal(("10", null, "A numbered key on its line"), (entry.Key, entry.Name, entry.Value)));
 
 		Assert.True(table.TryGetValue("ok button", out var keyedValue));
 		Assert.Equal("A key with spaces", keyedValue);
 		Assert.True(table.TryGetValue("kErrNoFood", out var namedValue));
 		Assert.Equal("A name above its value", namedValue);
+		Assert.True(table.TryGetValue("9", out var numberedValue));
+		Assert.Equal("A numbered key above its value", numberedValue);
+		Assert.True(table.TryGetValue("A label", out var labelledValue));
+		Assert.Equal("A numbered key above its value", labelledValue);
+		Assert.True(table.TryGetValue("10", out var numberedInlineValue));
+		Assert.Equal("A numbered key on its line", numberedInlineValue);
 		Assert.Empty(table.Problems);
+	}
+
+	[Fact]
+	public void NumberedKeysKeepTheirLabelAsAName()
+	{
+		const string content = """
+			1.new house window name
+				^New World^
+
+			5.
+				^:not used^
+
+			19. lights directory
+				^Lights^
+			1:^biped^
+			""";
+
+		var table = CSTTable.Parse(content);
+
+		Assert.Collection(
+			table.Entries,
+			entry => Assert.Equal(("1", "new house window name", "New World"), (entry.Key, entry.Name, entry.Value)),
+			entry => Assert.Equal(("5", null, ":not used"), (entry.Key, entry.Name, entry.Value)),
+			entry => Assert.Equal(("19", "lights directory", "Lights"), (entry.Key, entry.Name, entry.Value)),
+			entry => Assert.Equal(("1", null, "biped"), (entry.Key, entry.Name, entry.Value)));
+		Assert.True(table.TryGetValue("1", out var firstValue));
+		Assert.Equal("New World", firstValue);
+		Assert.True(table.TryGetValue("lights directory", out var namedValue));
+		Assert.Equal("Lights", namedValue);
+		Assert.Collection(
+			table.Problems,
+			problem =>
+			{
+				Assert.Equal(CSTProblemKind.RepeatedKey, problem.Kind);
+				Assert.Equal(9, problem.Line);
+				Assert.Equal("1", problem.Key);
+			});
+	}
+
+	[Theory]
+	[InlineData("1.5")]
+	[InlineData("10:30")]
+	[InlineData("1.5 kg")]
+	[InlineData("v1.2")]
+	[InlineData("1 . 2")]
+	public void NumbersThatAreNotNumberedKeysStayWhole(string text)
+	{
+		var above = CSTTable.Parse($"{text}\n^above^");
+		var before = CSTTable.Parse($"{text} ^before^");
+
+		Assert.True(above.TryGetValue(text, out var aboveValue));
+		Assert.Equal("above", aboveValue);
+		Assert.True(before.TryGetValue(text, out var beforeValue));
+		Assert.Equal("before", beforeValue);
 	}
 
 	[Theory]

@@ -159,17 +159,46 @@ internal sealed class CSTScanner
 
 		var key = text.Trim();
 		if (key.Length > 0)
-			return (key, null);
+			return TryTakeNumberedKey(key, out var numbered) ? numbered : (key, null);
 
 		if (lineAbove is null)
 			return (null, null);
 
-		var isNumericKey = lineAbove.Length > 0;
-		foreach (var character in lineAbove)
-			isNumericKey &= character is >= '0' and <= '9';
+		if (lineAbove.All(IsDigit))
+			return (lineAbove, null);
 
-		return isNumericKey ? (lineAbove, null) : (null, lineAbove);
+		return TryTakeNumberedKey(lineAbove, out var numberedAbove) ? numberedAbove : (null, lineAbove);
 	}
+
+	/// <summary>
+	/// Splits a number followed by a period or colon, such as <c>1.new house window name</c>,
+	/// <c>5.</c>, or <c>1:</c>, into the number as a key and the rest, if any, as a name.
+	/// </summary>
+	/// <remarks>
+	/// A digit right after the separator means the text is a number such as <c>1.5</c> or a time
+	/// such as <c>10:30</c>, not a numbered key.
+	/// </remarks>
+	private static bool TryTakeNumberedKey(string text, out (string? Key, string? Name) result)
+	{
+		result = default;
+
+		var digitCount = 0;
+		while (digitCount < text.Length && IsDigit(text[digitCount]))
+			digitCount++;
+
+		if (digitCount == 0 || digitCount == text.Length || text[digitCount] is not ('.' or ':'))
+			return false;
+
+		var rest = text[(digitCount + 1)..];
+		if (rest.Length > 0 && IsDigit(rest[0]))
+			return false;
+
+		var name = rest.Trim();
+		result = (text[..digitCount], name.Length == 0 ? null : name);
+		return true;
+	}
+
+	private static bool IsDigit(char character) => character is >= '0' and <= '9';
 
 	private void AddValue(string value, string? key, string? name, int line)
 	{
