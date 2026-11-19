@@ -8,6 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Authors>Tony Bark</Authors>
 		<PackageDescription>Reads Caret-Separated Text (.cst), the plain-text format The Sims Online and Sims Steering Committee use for their text, where each value sits between two carets after its key: 1 ^Buy^. Follows the CST specification, reports malformed entries without losing the rest of a table, fills placeholders, and loads tables from a TSO install or from SSC's folders laid over one another.</PackageDescription>
+		<PackageProjectUrl>https://github.com/tonytins/cstdotnet/blob/dev/README.md</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/tonytins/cstdotnet</RepositoryUrl>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

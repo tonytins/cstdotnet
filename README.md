@@ -76,7 +76,7 @@ if (layers.TryGetValueAt(130, 20, out var animation, treatEmptyAsMissing: true))
     Console.WriteLine(animation); // Ross's slot is empty, so this is the global table's value
 ```
 
-See the [usage guide](doc/README.md) for how keys are found, problems, `UIText`'s limits, and layers, and the [changelog](changelog.md) for what changed in each release.
+See the [usage guide](https://github.com/tonytins/cstdotnet/blob/dev/doc/README.md) for how keys are found, problems, `UIText`'s limits, and layers, and the [changelog](https://github.com/tonytins/cstdotnet/blob/dev/changelog.md) for what changed in each release.
 
 ## Supported Versions
 
@@ -91,4 +91,4 @@ This all began as a "what if?" What if I could made my own CST parser? It was an
 
 ## License
 
-I license this project under BSD-3-Clause license — see the [LICENSE](LICENSE) file for full text.
+I license this project under BSD-3-Clause license — see the [LICENSE](https://github.com/tonytins/cstdotnet/blob/dev/LICENSE) file for full text.
