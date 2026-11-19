@@ -1,14 +1,16 @@
 # 🔠 CST.NET
 
-CST.NET is a library for parsing Maxis' key-value pair format. It can be used in conjunction with your own custom frameworks, or the original `UIText` APIs.
+CST.NET is a .NET library for reading Caret-Separated Text (`.cst`), the plain-text format The Sims Online uses for its interface text. Each value sits between two carets and is found by its key, as in `1 ^Buy^` or `ok button ^Accept^`.
 
-Caret-Separated Text (or CST) is a key-value pair format represented by digits or words as keys and the value as text enclosed between carets. (e.g. `<key> ^<text>^`) Any text which is not enclosed with carets is considered a comment and ignored. Neither strings nor comments may use the caret character.
+It reads tables the way the [CST specification](https://github.com/tonytins/swift-cst/blob/main/doc/CST.md) describes, and comes with a `UIText` class that loads text from a TSO install the way the game does. See the [usage guide](doc/README.md) to get started.
 
 ## 🛠 Features
 
-- [x] Native support for Sims Online's `.cst` files.
-- [x] UIText Support
-- [ ] Variable support
+- [x] Reads every table in The Sims Online's beta, base game, and New & Improved installs
+- [x] Keys, names, numbered keys, and multiline values, as the CST specification describes them
+- [x] Reports malformed entries, such as unclosed values, without losing the rest of the table
+- [x] `UIText`, for loading text from a TSO install by table ID, position, or reference
+- [ ] Filling in placeholders such as `%s` and `%d`
 
 ## 🗓️ Update Cycle
 
@@ -29,12 +31,12 @@ Caret-Separated Text (or CST) is a key-value pair format represented by digits o
 
 Before you begin, ensure you have the latest versions of the following installed:
 
-- [.NET](https://dotnet.microsoft.com/en-us/) 8.0 or later
+- [.NET](https://dotnet.microsoft.com/en-us/) 10.0 or later
 
 ## 📝 Project Notes
 
-- While this project is technically feature complete, it is not a full drop-in replacement as it lacks variable (`%[digit]`) parsing.
-- I'm deprecating the `.sln` solution type in favour of `.slnx` going forward. It'll be removed sometime in the future.
+- CST.NET returns placeholders such as `%s` untouched, so code that shows the text fills them in.
+- Changes are recorded in the [changelog](doc/changelog.md).
 
 ## 🔍 Background
 
