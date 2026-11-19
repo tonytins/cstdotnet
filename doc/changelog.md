@@ -9,6 +9,9 @@
   value's name. A lookup finds the value by either. A digit right after the separator, as in
   `1.5` or `10:30`, still makes the whole text the key. This follows the CST specification's
   rule for Sims Steering Committee tables, and it changes nothing in The Sims Online's tables.
+- Values now separate their lines with `\n` on every platform, whatever line endings the file
+  uses. Earlier versions used the system's line ending, so on Windows a multiline value used to
+  contain `\r\n`.
 
 ### 2.1.101
 
