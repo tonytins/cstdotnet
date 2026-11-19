@@ -94,9 +94,10 @@ missing one. Accuracy outranks reading every last value.
 - **Keep the specification's example in the tests**, with every entry it lists, and update
   it when the specification's example changes.
 - **Check parser changes against real tables.** Hand-written samples hold only the shapes
-  their author already knows about. `TSO_GAME_DIR`, `TSO_CLASSIC_DIR`, and `TSO_BETA_DIR`
-  point to local installs when they are set, and `dotnet test` then reads every table in
-  them. Comparing every entry before and after a change is the strongest check. Do not
+  their author already knows about. `SSC_GAME_DIR`, `TSO_GAME_DIR`, `TSO_CLASSIC_DIR`, and
+  `TSO_BETA_DIR` point to local installs when they are set, and `dotnet test` then reads
+  every table in them. Comparing every entry before and after a change, or against
+  SwiftCST's reading of the same tables, is the strongest check. Do not
   commit files from a game install.
 
 ### Releases and Changelog
