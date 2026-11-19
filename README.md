@@ -1,48 +1,83 @@
 # 🔠 CST.NET
 
-CST.NET is a .NET library for reading Caret-Separated Text (`.cst`), the plain-text format The Sims Online uses for its interface text. Each value sits between two carets and is found by its key, as in `1 ^Buy^` or `ok button ^Accept^`.
+CST.NET is a .NET library for parsing Maxis' key-value pair format. It can be used with custom frameworks or the original `UIText` APIs.
 
-It reads tables the way the [CST specification](https://github.com/tonytins/swift-cst/blob/main/doc/CST.md) describes, and comes with a `UIText` class that loads text from a TSO install the way the game does. See the [usage guide](doc/README.md) to get started.
+## What is CST?
 
-## 🛠 Features
+Caret-Separated Text (or CST) is a string-text format: a plain-text resource format with digits or words as keys and each value enclosed between carets. (e.g. `<key> ^<value>^`) Maxis used it as early as Sims Steering Committee, a prototype of The Sims, for animation, file, and texture names, and later in The Sims Online for its interface text. It's handy on its own for any project that wants a simple table of strings or a clear path to translation.
 
-- [x] Reads every table in The Sims Online's beta, base game, and New & Improved installs
-- [x] Keys, names, numbered keys, and multiline values, as the CST specification describes them
-- [x] Reports malformed entries, such as unclosed values, without losing the rest of the table
-- [x] `UIText`, for loading text from a TSO install by table ID, position, or reference
-- [ ] Filling in placeholders such as `%s` and `%d`
+## Features
 
-## 🗓️ Update Cycle
+- [x] TSO compatible, checked against the beta, base game, and New & Improved
+    - [x] Values with no key, and names above values
+    - [x] Keys with spaces, and indented keys
+    - [ ] Variables
+    - [x] UTF-8 and Windows-1252 files
+    - [x] References between tables
+- [ ] Sims Steering Committee compatible
+    - [x] Numbered keys such as `1.label` and `1:`
+    - [ ] `.dir` folders of `#<id>#<name>.cst` tables, laid over one another
+- [x] Multiline values
+- [x] C-style comments
+- [x] Malformed entries reported rather than stopping the read
+- [x] UIText
 
-| Type         | Frequency            |
-| ------------ | -------------------- |
-| Minor Update | Every 3–6 months     |
-| Patch Update | Monthly or as needed |
-| Major Update | As needed            |
+The format is described in [the CST specification](https://github.com/tonytins/swift-cst/blob/main/doc/CST.md).
 
-## 🛡️ Support
+## Installation
 
-- [ ] Active Support
-- [x] Limited Support (Security patches only)
-- [ ] Maintenance Mode (Dependency-only updates)
-- [ ] Archived (No active work planned)
+```sh
+dotnet add package CSTNet
+```
 
-## 🧰 Prerequisites
+## Usage
 
-Before you begin, ensure you have the latest versions of the following installed:
+```csharp
+using CSTNet;
 
-- [.NET](https://dotnet.microsoft.com/en-us/) 10.0 or later
+var table = CSTTable.Parse("1 ^Hello, %s!^\nok button ^Accept^");
 
-## 📝 Project Notes
+if (table.TryGetValue("1", out var hello))
+    Console.WriteLine(hello); // Hello, %s!
 
-- CST.NET returns placeholders such as `%s` untouched, so code that shows the text fills them in.
-- Changes are recorded in the [changelog](doc/changelog.md).
+Console.WriteLine(table.Entries.Count); // Every value, in file order
+Console.WriteLine(table.Problems.Count); // Anything malformed
+```
 
-## 🔍 Background
+`TryGetValue` returns `false` for a missing key, so it can't be mistaken for real text. A key must match whole, so `ok` doesn't find `ok button`. Values come back as written, with placeholders such as `%s` left for your code to fill.
+
+For a one-off lookup, `CST.Parse` returns the value, or `***MISSING***` for a missing key:
+
+```csharp
+var accept = CST.Parse(content, "ok button");
+```
+
+### UIText
+
+`UIText` looks up a key in a table named `_<id>_<name>.cst`, the way The Sims Online does. Pass an install's `gamedata` directory, and it finds the layout itself, whether New & Improved's `uitext/<language>.dir` or the earlier `uitext.dir`. It reads UTF-8 and Windows-1252 files, finds values with no key by their position from 0, and follows references between tables.
+
+```csharp
+var text = new UIText("english", "/path/to/TSOClient/gamedata");
+
+if (text.GetTextIfPresent(154, 1) is { } greeting)
+    Console.WriteLine(greeting);
+```
+
+`GetTextIfPresent` returns `null` for a missing table or key, while `GetText` returns `***MISSING***`. Filesystem errors are thrown to the caller. Each lookup reads the table again, so for many lookups in one table, use `CSTTable`.
+
+See the [usage guide](doc/README.md) for how keys are found, problems, and `UIText`'s limits, and the [changelog](changelog.md) for what changed in each release.
+
+## Supported Versions
+
+| CSTNet | Minimum .NET Version |
+| ------ | -------------------- |
+| `2.1.200 ...` | .NET 10 |
+| `2.0.100 ... 2.0.103` | .NET 6 or .NET Standard 2.1 |
+
+## Background
 
 This all began as a "what if?" What if I could made my own CST parser? It was an attempt to create my first algorithm. One that was a little better than came before. So, I did. First from a Jupyter notebook and then a full-fledged project that now has it's own support cycle.
 
-## ⚖️ License
+## License
 
 I license this project under BSD-3-Clause license — see the [LICENSE](LICENSE) file for full text.
-

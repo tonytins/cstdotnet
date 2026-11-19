@@ -16,7 +16,7 @@ them in this order: `UIText`, then the CST core.
   references. It should use only the core's public API.
 
 `CSTNet` holds the library, and `CSTNet.Tests` covers its behavior with xUnit v3.
-[doc/README.md](doc/README.md) documents usage, and [doc/changelog.md](doc/changelog.md)
+[doc/README.md](doc/README.md) documents usage, and [changelog.md](changelog.md)
 records each release. `notebooks/` holds the original prototype and is kept as history;
 don't update it to match the library.
 

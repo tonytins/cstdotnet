@@ -7,7 +7,7 @@
 CST.NET now reads tables the way the
 [CST specification](https://github.com/tonytins/swift-cst/blob/main/doc/CST.md) describes,
 and has been checked against every table in The Sims Online's beta, base game, and New &
-Improved installs. See the [usage guide](README.md) for the new APIs.
+Improved installs. See the [usage guide](doc/README.md) for the new APIs.
 
 #### Breaking changes
 
@@ -70,7 +70,7 @@ This version supports both .NET Standard 2.1 and .NET 6 and brings with it (much
 
 Based on FreeSO's API, the `UIText` class allows for traversing in `/<directory>/<language>.dir` directories and searching CST files by their Id number. (e.g. \_*154*\_miscstrings.cst). By default, the base path is `/<program directory>/uitext/<language>.dir`. You may also create your own implementation based on these APIs using the `IUIText` interface which mine also uses.
 
-For more info, see the [usage guide](README.md).
+For more info, see the [usage guide](doc/README.md).
 
 ## 1.0
 

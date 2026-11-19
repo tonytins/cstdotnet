@@ -6,12 +6,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Authors>Tony Bark</Authors>
-		<PackageDescription>
-			Reads Caret-Separated Text (.cst), the plain-text format The Sims Online uses for its
-			interface text, where each value sits between two carets after its key: 1 ^Buy^.
-			Follows the CST specification, reports malformed entries without losing the rest of a
-			table, and includes UIText for loading text from a TSO install.
-		</PackageDescription>
+		<PackageDescription>Reads Caret-Separated Text (.cst), the plain-text format The Sims Online uses for its interface text, where each value sits between two carets after its key: 1 ^Buy^. Follows the CST specification, reports malformed entries without losing the rest of a table, and includes UIText for loading text from a TSO install.</PackageDescription>
 		<RepositoryUrl>https://github.com/tonytins/cstdotnet</RepositoryUrl>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
 	</PropertyGroup>
