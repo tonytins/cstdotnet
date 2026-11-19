@@ -164,7 +164,7 @@ internal sealed class CSTScanner
 		if (lineAbove is null)
 			return (null, null);
 
-		if (lineAbove.All(IsDigit))
+		if (IsAllDigits(lineAbove))
 			return (lineAbove, null);
 
 		return TryTakeNumberedKey(lineAbove, out var numberedAbove) ? numberedAbove : (null, lineAbove);
@@ -199,6 +199,18 @@ internal sealed class CSTScanner
 	}
 
 	private static bool IsDigit(char character) => character is >= '0' and <= '9';
+
+	// A loop rather than LINQ, which a Cosmos kernel hasn't been shown to run.
+	private static bool IsAllDigits(string text)
+	{
+		foreach (var character in text)
+		{
+			if (!IsDigit(character))
+				return false;
+		}
+
+		return text.Length > 0;
+	}
 
 	private void AddValue(string value, string? key, string? name, int line)
 	{

@@ -7,7 +7,8 @@
 CST.NET now reads tables the way the
 [CST specification](https://github.com/tonytins/swift-cst/blob/main/doc/CST.md) describes,
 and has been checked against every table in The Sims Online's beta, base game, and New &
-Improved installs. See the [usage guide](doc/README.md) for the new APIs.
+Improved installs, and in Sims Steering Committee, where it reads every entry the same as
+SwiftCST 0.4.0. See the [usage guide](doc/README.md) for the new APIs.
 
 #### Breaking changes
 
@@ -42,6 +43,21 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
 - `UIText` also finds tables in `uitext/<language>.dir` (New & Improved) and `uitext.dir`
   (earlier versions), decodes non-UTF-8 tables as Windows-1252, finds values with no key by
   their position from 0, and follows references to other tables.
+- Variables: `CST.Format` fills a value's placeholders in order. `%s`, `%d`, `%i`, `%u`,
+  `%ld`, `%li`, and `%lu` each take a variable, `%3d` pads with spaces, `%03d` and `%.3d` pad
+  with zeros, and `%%` becomes one percent sign. Placeholders with no variable left stay as
+  written. `CST.Parse`, `UIText.GetText`, and `UIText.GetTextIfPresent` take variables after
+  the key, and leave values untouched without them.
+- `CSTDirectory` reads every table in a folder at once, named either `_<id>_<name>.cst`, as The
+  Sims Online does, or `#<id>#<name>.cst`, as Sims Steering Committee does. A second file with
+  the same ID is reported in `Problems` and skipped.
+- `CSTLayers` looks a value up through several directories in order, by key, name, or position,
+  and can treat empty values as missing, the way Sims Steering Committee lays each person's
+  tables over the global ones.
+- `UIText` also reads a table file with no name after its ID, such as `_7_.cst`.
+- `CSTTable`, `CSTDirectory`, `CSTLayers`, and `CST.Format` don't use LINQ, reflection, or code
+  page providers, so they can run where those aren't available. The library is marked
+  compatible with trimming and native AOT.
 
 ### 2.1.100
 
@@ -50,7 +66,8 @@ Improved installs. See the [usage guide](doc/README.md) for the new APIs.
 
 #### Experimental
 
-- Parser function can now be consumed from non-.NET programming languages.
+- Parser function can now be consumed from non-.NET programming languages. It's only in Debug
+  builds, so the package on NuGet doesn't include it.
 
 ## 2.0
 

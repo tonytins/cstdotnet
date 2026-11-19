@@ -1,8 +1,8 @@
 # Using CST.NET
 
 CST.NET reads Caret-Separated Text (`.cst`) tables, the plain-text format The Sims Online
-(TSO) uses for its interface text. Each value sits between two carets, and you find it by
-its key:
+(TSO) uses for its interface text, and Sims Steering Committee (SSC), a prototype of The Sims,
+used before it. Each value sits between two carets, and you find it by its key:
 
 ```text
 // Buttons for the purchase dialog
@@ -114,10 +114,42 @@ Values come back exactly as written, except for line breaks:
 
 - **Line breaks** inside a value are always `\n`, whatever the file uses and whatever system
   you run on.
-- **Placeholders** such as `%s`, `%d`, and `%%` stay as written. Fill them in yourself, for
-  example with your own formatting code.
+- **Placeholders** such as `%s`, `%d`, and `%%` stay as written until you
+  [fill them in](#fill-in-placeholders).
 - **References** to another table, values starting with the character U+0002, stay as written
   in a `CSTTable`. `UIText` follows them for you.
+
+## Fill in placeholders
+
+Pass variables to `CST.Format`, and they fill a value's placeholders in order:
+
+```csharp
+if (table.TryGetValue("3", out var welcome))
+    Console.WriteLine(CST.Format(welcome, "Maya")); // Welcome back, Maya!
+```
+
+| Placeholder | Fills in |
+| --- | --- |
+| `%s` | The next variable |
+| `%d`, `%i`, `%u`, `%ld`, `%li`, `%lu` | The next variable, usually a number |
+| `%3d` | The next variable, padded with spaces to at least 3 characters |
+| `%03d` | The next variable, padded with zeros to at least 3 characters, after any minus sign |
+| `%.3d` | The next variable, padded with zeros to at least 3 digits, after any minus sign |
+| `%%` | One percent sign |
+
+Variables are written the same way on every system, so `1.5` never becomes `1,5`. Padding
+never shortens a number, and a width over 1,000 pads nothing. Text a variable puts in isn't
+read for placeholders again.
+
+If you run out of variables, the remaining placeholders stay as written, so the mistake shows.
+Any other `%`, such as in `to sell % for $`, is left alone. A `null` variable throws an
+`ArgumentException`.
+
+`CST.Parse` and `UIText`'s lookups also take variables after the key:
+
+```csharp
+var welcome = text.GetTextIfPresent(101, 3, "Maya"); // Welcome back, Maya!
+```
 
 ## Read text from a TSO install
 
@@ -166,15 +198,68 @@ If a table file or folder can't be read, both methods throw an `IOException` or
 - Installs with `uitext.dir` hold one language. `UIText` uses it for any language you ask for.
 - `UIText` reads and parses the table file on every lookup. For many lookups in one table,
   parse it once with `CSTTable` instead, and decode the file yourself if it isn't UTF-8.
-- Placeholders in a reference, such as `<string arg="1">%s</string>`, aren't passed on. You
-  get the target's text with its placeholders as written.
+- A reference's own arguments, such as `<string arg="1">%s</string>`, aren't passed on. The
+  variables you pass fill the target's text.
+
+## Read a folder of tables
+
+`CSTDirectory.Read` reads every table in one folder at once. It accepts both games' file
+names: The Sims Online's `_101_strings.cst` and Sims Steering Committee's
+`#128#Animations.cst`. Other files and subfolders are ignored.
+
+```csharp
+var global = CSTDirectory.Read("/path/to/TDSScen/Global/Global.dir");
+
+if (global.TryGetTable(128, out var animations))
+    Console.WriteLine(animations.Entries.Count);
+```
+
+Files are decoded as UTF-8, or as Windows-1252 when they aren't valid UTF-8. Once read, a
+`CSTDirectory` never touches the disk again, so later changes to the files aren't seen.
+
+If two files have the same ID, the first by name is kept, and the other is listed in
+`Problems` with the `RepeatedTable` kind. Problems inside a table are in that table's own
+`Problems`.
+
+If the folder or one of its files can't be read, `Read` throws a `DirectoryNotFoundException`,
+`IOException`, or `UnauthorizedAccessException`.
+
+To build a directory from tables you already have, pass them to the constructor:
+`new CSTDirectory(new Dictionary<int, CSTTable> { [1] = table })`.
+
+## Lay tables over one another
+
+`CSTLayers` looks a value up in several directories in order, and returns the first one it
+finds. Sims Steering Committee uses this to lay each person's tables over the global ones,
+so list the top layer first:
+
+```csharp
+var ross = CSTDirectory.Read("/path/to/TDSScen/Objects/ross.dir");
+var layers = new CSTLayers(ross, global);
+
+if (layers.TryGetValueAt(130, 66, out var animation))
+    Console.WriteLine(animation); // ross-standing-loop, where the global table has duchess-standing-loop
+```
+
+- `TryGetValue` finds a value by its key or name, and `TryGetValueAt` by its position. Positions
+  count every value in a table from 0, including values with keys.
+- A missing table, a missing value, and a value that was never closed all move on to the next
+  layer.
+- An empty value is returned as it is, because most empty values are real empty text. Pass
+  `treatEmptyAsMissing: true` to move on to the next layer instead, which is what an empty value
+  means in Sims Steering Committee's person tables.
+
+The layers don't change once created. To add or remove one, create a new `CSTLayers`.
 
 ## Quick lookups
 
-`CST.Parse` looks up one value in a string, and returns `***MISSING***` if there's no match:
+`CST.Parse` looks up one value in a string, and returns `***MISSING***` if there's no match.
+Variables after the key fill its placeholders:
 
 ```csharp
-var cancel = CST.Parse(File.ReadAllText("_101_purchase.cst"), 2); // Cancel
+var content = File.ReadAllText("_101_purchase.cst");
+var cancel = CST.Parse(content, 2); // Cancel
+var welcome = CST.Parse(content, 3, "Maya"); // Welcome back, Maya!
 ```
 
 It parses the whole table on every call and can't tell a missing value from real text.

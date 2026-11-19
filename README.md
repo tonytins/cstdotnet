@@ -11,12 +11,12 @@ Caret-Separated Text (or CST) is a string-text format: a plain-text resource for
 - [x] TSO compatible, checked against the beta, base game, and New & Improved
     - [x] Values with no key, and names above values
     - [x] Keys with spaces, and indented keys
-    - [ ] Variables
+    - [x] Variables
     - [x] UTF-8 and Windows-1252 files
     - [x] References between tables
-- [ ] Sims Steering Committee compatible
+- [x] Sims Steering Committee compatible
     - [x] Numbered keys such as `1.label` and `1:`
-    - [ ] `.dir` folders of `#<id>#<name>.cst` tables, laid over one another
+    - [x] `.dir` folders of `#<id>#<name>.cst` tables, laid over one another
 - [x] Multiline values
 - [x] C-style comments
 - [x] Malformed entries reported rather than stopping the read
@@ -38,13 +38,13 @@ using CSTNet;
 var table = CSTTable.Parse("1 ^Hello, %s!^\nok button ^Accept^");
 
 if (table.TryGetValue("1", out var hello))
-    Console.WriteLine(hello); // Hello, %s!
+    Console.WriteLine(CST.Format(hello, "World")); // Hello, World!
 
 Console.WriteLine(table.Entries.Count); // Every value, in file order
 Console.WriteLine(table.Problems.Count); // Anything malformed
 ```
 
-`TryGetValue` returns `false` for a missing key, so it can't be mistaken for real text. A key must match whole, so `ok` doesn't find `ok button`. Values come back as written, with placeholders such as `%s` left for your code to fill.
+`TryGetValue` returns `false` for a missing key, so it can't be mistaken for real text. A key must match whole, so `ok` doesn't find `ok button`. Values come back as written, and `CST.Format` fills placeholders such as `%s` and `%03d` in order.
 
 For a one-off lookup, `CST.Parse` returns the value, or `***MISSING***` for a missing key:
 
@@ -65,7 +65,18 @@ if (text.GetTextIfPresent(154, 1) is { } greeting)
 
 `GetTextIfPresent` returns `null` for a missing table or key, while `GetText` returns `***MISSING***`. Filesystem errors are thrown to the caller. Each lookup reads the table again, so for many lookups in one table, use `CSTTable`.
 
-See the [usage guide](doc/README.md) for how keys are found, problems, and `UIText`'s limits, and the [changelog](changelog.md) for what changed in each release.
+### Folders and layers
+
+For a game's own tables kept directly in a folder, such as Sims Steering Committee's `.dir` folders, `CSTDirectory` reads every `#<id>#<name>.cst` or `_<id>_<name>.cst` table at once. `CSTLayers` looks through several directories in order, such as a person's tables over the global ones:
+
+```csharp
+var layers = new CSTLayers(CSTDirectory.Read(rossPath), CSTDirectory.Read(globalPath));
+
+if (layers.TryGetValueAt(130, 20, out var animation, treatEmptyAsMissing: true))
+    Console.WriteLine(animation); // Ross's slot is empty, so this is the global table's value
+```
+
+See the [usage guide](https://github.com/tonytins/cstdotnet/blob/dev/doc/README.md) for how keys are found, problems, `UIText`'s limits, and layers, and the [changelog](https://github.com/tonytins/cstdotnet/blob/dev/changelog.md) for what changed in each release.
 
 ## Supported Versions
 
@@ -80,4 +91,4 @@ This all began as a "what if?" What if I could made my own CST parser? It was an
 
 ## License
 
-I license this project under BSD-3-Clause license — see the [LICENSE](LICENSE) file for full text.
+I license this project under BSD-3-Clause license — see the [LICENSE](https://github.com/tonytins/cstdotnet/blob/dev/LICENSE) file for full text.
